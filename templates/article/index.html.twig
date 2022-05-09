@@ -25,8 +25,8 @@
                     <td><img class="article-picture-crud" src="/upload/pictures/{{ article.picture }}"/></td>
                     <td>{{ article.alt }}</td>
                     <td>
-                        <a href="{{ path('app_articles_show', {'id': article.id}) }}">show</a>
-                        <a href="{{ path('app_articles_edit', {'id': article.id}) }}">edit</a>
+                        <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+                        <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
                     </td>
                 </tr>
             {% else %}
