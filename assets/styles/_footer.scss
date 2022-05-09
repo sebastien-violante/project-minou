@@ -1,0 +1,14 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 3em;
+    width:100%;
+    border: 1px solid black;
+    background-color: darkcyan;
+    
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+    }
+}

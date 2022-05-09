@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    <p>
+        {{ form_label(form.title, 'Titre :', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+    </p>
+    <p>
+        {{ form_label(form.text, 'Texte :', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.text, {'attr': {'class': 'form-control'}}) }}
+    </p>
+    
+        
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
