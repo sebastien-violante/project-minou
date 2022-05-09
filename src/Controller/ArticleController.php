@@ -7,6 +7,7 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,22 +33,26 @@ class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        EntityManagerInterface $em,
+        ManagerRegistry $doctrine
+       /*  ArticleRepository $articleRepository,
+        EntityManagerInterface $em, */
     ): Response {
+        $em = $doctrine->getManager();
         $article = new Article();
+        $article->setDate(new DateTime());
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            /* $em = $this->getDoctrine()->getManager(); */
             
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $article instanceof Article) {
                 $newFilename = 'article' . '-' . $article->getId() . '.' . $picture->guessExtension();
-                if (is_string($this->getParameter('pictures_directory'))) {
+                if (is_string($this->getParameter('picture_directory'))) {
                     try {
                         $picture->move(
-                            $this->getParameter('pictures_directory'),
+                            $this->getParameter('picture_directory'),
                             $newFilename
                         );
                     } catch (FileException $e) {
@@ -77,7 +82,7 @@ class ArticleController extends AbstractController
             'article' => $article,
         ]);
     }
-/* 
+ 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -94,8 +99,8 @@ class ArticleController extends AbstractController
             'article' => $article,
             'form' => $form,
         ]);
-    } */
-/* 
+    }
+ 
     #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
@@ -105,5 +110,5 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
-    } */
+    }
 }
