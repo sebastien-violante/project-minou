@@ -18,8 +18,13 @@
         width: 100%;
         border-top-right-radius: 10px;
         border-bottom-left-radius: 10px;
+        overflow: hidden;
     }
 
+    .article-picture-background {
+        width: 100%;
+        
+    }
     .article-title {
         font-size: 1.5em;
         margin-top: 0.5em;
@@ -27,6 +32,11 @@
 
     .article.text {
         text-align:justify;
+        display: -webkit-box; 
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow:ellipsis;
     }
 
     .advice {
