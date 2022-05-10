@@ -53,6 +53,33 @@
         justify-content: space-evenly;
     }
 
+    .card {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+
+    .card-img-top {
+        height: 100%;
+        width: auto;
+    }
+
+    .cat-picture {
+        height: 100px;
+        width: 100px;
+        border-top-right-radius: 0.25em;
+        overflow: hidden;
+    }
+    .cats {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1em;
+        height: 40vh;
+        overflow: scroll;
+    }
+
     h1 {
         font-size: 1.5em;
         margin-top: 2em;

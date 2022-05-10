@@ -1,8 +1,6 @@
 <div class="header">
     <nav>
-            {% if app.user is empty %}
-            
-
+            {% if app.user is not empty %}
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="#">Active</a>
@@ -17,11 +15,8 @@
       <li><a class="dropdown-item" href="#">Separated link</a></li>
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">Disabled</a>
+  <li>
+    <p>{{ dump(app.user.pseudo) }}</p>
   </li>
 </ul>
 

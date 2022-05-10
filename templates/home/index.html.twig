@@ -21,33 +21,34 @@
 		</section>
 	</section>
     <section id="right">
-      <section class="chats">
         <h1>Vos chats</h1>
-		<hr>
-		<div class="slider">
-                    {# {% for recommendation in recommendations %}
-                        <div class="place">
-                            <img class="place-picture" src="{{ asset(recommendation.picture) }}">
-                            <p class="place-name">{{ recommendation.name }}</p>
-                            <div class="geoloc">
-                                <img class="geoloc-icon" src="{{ asset('build/pictures/geoloc.png') }}">
-                                <p class="place-distance">{{ recommendation.distance }}</p>
-                            </div>
-                        </div>
-                    {% endfor %} #}
+        <hr>
+        <section class="cats">
+            {% for cat in cats %}
+            <div class="card" style="width: 18rem;">
+                
+                <div class="card-body">{{ cat.name }}</h5>
+                    <p class="card-text">{{ cat.details }}.</p>
+                    <a href="#" class="btn btn-primary">Déclarer perdu</a>
                 </div>
-      </section>
+                <div class="cat-picture">
+                    <img src="/pictures/{{ cat.picture }}" class="card-img-top" alt="...">
+                </div>
+            </div> 
+        {% endfor %}       
+        </section>
+        
+        <section class="soins">
+            <h1>Les conseils des professionnels</h1>
+            <hr>
+            <div id="buttons">
+                <button class="advice">Les soins dès le plus jeune âge</button>
+                <button class="advice">Le calendrier des vaccinations</button>
+                <button class="advice">Bien choisir son chat persan</button>
+                <button class="advice">Comportements à risque</button>
+            </div>
+        </section>
 
-      <section class="soins">
-		<h1>Les conseils des professionnels</h1>
-		<hr>
-		<div id="buttons">
-            <button class="advice">Les soins dès le plus jeune âge</button>
-            <button class="advice">Le calendrier des vaccinations</button>
-            <button class="advice">Bien choisir son chat persan</button>
-            <button class="advice">Comportements à risque</button>
-		</div>
-      </section>
     </section>  
 </section>
 {% endblock %}

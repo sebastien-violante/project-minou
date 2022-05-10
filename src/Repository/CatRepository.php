@@ -47,20 +47,20 @@ class CatRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Cat[] Returns an array of Cat objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Cat[] Returns an array of Cat objects
+     */
+    public function findByEmail($email): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.email = :val')
+            ->setParameter('val', $email)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Cat
 //    {
