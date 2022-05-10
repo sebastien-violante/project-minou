@@ -3,18 +3,49 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<section class="home">
+    <section id="left">
+		<h1>Les dernières actualités...</h1>
+		<section id="actualité">
+		{% for article in articles %}
+			<article>
+			<img class="article-picture" src='/pictures/{{article.picture}}'>
+			<h1 class="article-title">{{ article.title }}</h1>
+			<p>{{ article.date|date('Y-m-d H:i') }}</p>
+			<p class="article-text">{{ article.text}}</p>
+			</article>
+			<hr>
+		{% endfor %}
+		</section>
+	</section>
+    <section id="right">
+      <section class="chats">
+        <h1>Vos chats</h1>
+		<hr>
+		<div class="slider">
+                    {# {% for recommendation in recommendations %}
+                        <div class="place">
+                            <img class="place-picture" src="{{ asset(recommendation.picture) }}">
+                            <p class="place-name">{{ recommendation.name }}</p>
+                            <div class="geoloc">
+                                <img class="geoloc-icon" src="{{ asset('build/pictures/geoloc.png') }}">
+                                <p class="place-distance">{{ recommendation.distance }}</p>
+                            </div>
+                        </div>
+                    {% endfor %} #}
+                </div>
+      </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/sebastienviolante/Documents/PROJET TITRE/minou2/minou2/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/sebastienviolante/Documents/PROJET TITRE/minou2/minou2/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+      <section class="soins">
+		<h1>Les conseils des professionnels</h1>
+		<hr>
+		<div id="buttons">
+            <button class="advice">Les soins dès le plus jeune âge</button>
+            <button class="advice">Le calendrier des vaccinations</button>
+            <button class="advice">Bien choisir son chat persan</button>
+            <button class="advice">Comportements à risque</button>
+		</div>
+      </section>
+    </section>  
+</section>
 {% endblock %}

@@ -22,7 +22,7 @@
                         <p class="article-text">{{ article.text }}</p>
                     </td>
                     <td>{{ article.date|date('Y-m-d H:i') }}</td>
-                    <td><img class="article-picture-crud" src="/upload/pictures/{{ article.picture }}"/></td>
+                    <td><img class="article-picture-crud" src="/pictures/{{ article.picture }}"/></td>
                     <td>{{ article.alt }}</td>
                     <td>
                         <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>

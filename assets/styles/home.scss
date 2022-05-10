@@ -1,0 +1,56 @@
+.home {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+    #actualité {
+        border: 1px solid black;
+        padding: 1em;
+        max-width: 400px;
+        min-width: 200px;
+        height: 70vh;
+        overflow: scroll;
+    }
+
+    .article-picture {
+        height: 200px;
+        width: 100%;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    .article-title {
+        font-size: 1.5em;
+        margin-top: 0.5em;
+    }
+
+    .article.text {
+        text-align:justify;
+    }
+
+    .advice {
+        height: 80px;
+        width: 200px;
+        margin: 0.2em;
+        border-radius: 10px;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    #right, #left {
+        max-width: 600px;
+        margin-top: 50px;
+    }
+}
