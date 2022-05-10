@@ -44,8 +44,6 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /* $em = $this->getDoctrine()->getManager(); */
-            
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $article instanceof Article) {
                 $newFilename = 'article' . '-' . $article->getId() . '.' . $picture->guessExtension();
