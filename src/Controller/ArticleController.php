@@ -33,20 +33,19 @@ class ArticleController extends AbstractController
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        ManagerRegistry $doctrine
-       /*  ArticleRepository $articleRepository,
-        EntityManagerInterface $em, */
+        ManagerRegistry $doctrine,
+        ArticleRepository $articleRepository,
     ): Response {
-        $em = $doctrine->getManager();
         $article = new Article();
-        $article->setDate(new DateTime());
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $em= $doctrine->getManager();
+            $article->setDate(new DateTime());          
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $article instanceof Article) {
-                $newFilename = 'article' . '-' . $article->getId() . '.' . $picture->guessExtension();
+                $newFilename = 'article' . '-' .$article->getDate()->format('Y-m-d H-m'). '.' . $picture->guessExtension();
                 if (is_string($this->getParameter('picture_directory'))) {
                     try {
                         $picture->move(
@@ -57,19 +56,14 @@ class ArticleController extends AbstractController
                         return $this->render('errors/error500.html.twig');
                     }
                 }
+                $article->setPicture($newFilename);
             }
-            $article->setPicture($newFilename);
-            $date = new DateTime();
-            $article->setDate($date);
             $em->persist($article);
             $em->flush();
-
-            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home');
         }
-
-        return $this->renderForm('article/new.html.twig', [
-            'article' => $article,
-            'form' => $form,
+        return $this->render('article/new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
