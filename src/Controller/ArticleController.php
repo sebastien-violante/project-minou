@@ -44,7 +44,10 @@ class ArticleController extends AbstractController
             $em= $doctrine->getManager();
             $article->setDate(new DateTime());          
             $picture = $form->get('picture')->getData();
-            if ($picture instanceof UploadedFile && $article instanceof Article) {
+            if (empty($picture)) {
+                $article->setPicture('default-article-picture.webp');
+            }
+            else if ($picture instanceof UploadedFile && $article instanceof Article) {
                 $newFilename = 'article' . '-' .$article->getDate()->format('Y-m-d H-m'). '.' . $picture->guessExtension();
                 if (is_string($this->getParameter('picture_directory'))) {
                     try {
