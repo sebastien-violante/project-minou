@@ -54,10 +54,9 @@
     }
 
     .card {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1em;
+        width: 150px;
+        height: 300px;
+        border: 1px solid black
     }
 
     .card-img-top {
@@ -71,14 +70,14 @@
         border-top-right-radius: 0.25em;
         overflow: hidden;
     }
-    .cats {
+   /*  .cats {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 1em;
         height: 40vh;
         overflow: scroll;
-    }
+    } */
 
     h1 {
         font-size: 1.5em;

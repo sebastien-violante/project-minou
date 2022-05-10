@@ -25,16 +25,12 @@
         <hr>
         <section class="cats">
             {% for cat in cats %}
-            <div class="card" style="width: 18rem;">
-                
-                <div class="card-body">{{ cat.name }}</h5>
-                    <p class="card-text">{{ cat.details }}.</p>
-                    <a href="#" class="btn btn-primary">Déclarer perdu</a>
+            <div class="multiple-items">
+                <div class="card">
+                <p>{{ cat.name }}</p>
+                <p>{{ cat.details }}</p>
                 </div>
-                <div class="cat-picture">
-                    <img src="/pictures/{{ cat.picture }}" class="card-img-top" alt="...">
-                </div>
-            </div> 
+            </div>
         {% endfor %}       
         </section>
         
