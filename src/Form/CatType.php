@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Cat;
+use App\Entity\Breed;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -15,7 +17,11 @@ class CatType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('race')
+            ->add('race', EntityType::class, [
+                'class' => Breed::class,
+                'multiple' => true,
+                'expanded' => false,
+                'required' => true,])
             ->add('picture', FileType::class, [
                 'label' => 'Image de profil',
                 'mapped' => false,
