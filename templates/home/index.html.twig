@@ -24,14 +24,14 @@
         <h1>Vos chats</h1>
         <hr>
         <section class="cats">
+            <div class="responsive">
             {% for cat in cats %}
-            <div class="multiple-items">
                 <div class="card">
-                <p>{{ cat.name }}</p>
-                <p>{{ cat.details }}</p>
+                    <p>{{ cat.name }}</p>
+                    <p>{{ cat.details }}</p>
                 </div>
+            {% endfor %}   
             </div>
-        {% endfor %}       
         </section>
         
         <section class="soins">

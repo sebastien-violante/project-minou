@@ -54,9 +54,12 @@
     }
 
     .card {
-        width: 150px;
         height: 300px;
-        border: 1px solid black
+        margin: 0.5em;
+        border-right : 2px solid grey;
+        border-bottom: 2px solid grey;
+        border-left : 1px solid grey;
+        border-top: 1px solid grey;
     }
 
     .card-img-top {
