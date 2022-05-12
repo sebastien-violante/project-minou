@@ -29,6 +29,8 @@
                 <div class="card">
                     <p>{{ cat.name }}</p>
                     <p>{{ cat.details }}</p>
+                    <p>{{ dump(cat.islost) }}</p>
+                    <a href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger" onclick="tolost()">Perdu ?</button></a>
                 </div>
             {% endfor %}   
             </div>

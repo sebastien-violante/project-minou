@@ -7,6 +7,7 @@ import './bootstrap';
 
 import './slick/slick.min.js';
 import './responsive-slick';
+import './script.js';
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();

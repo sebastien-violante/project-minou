@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Cat;
 use App\Form\CatType;
 use App\Repository\CatRepository;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,5 +106,17 @@ class CatController extends AbstractController
         return $this->render('cat/new.html.twig', [
             'form' => $form->createView(),
         ]);
-    } 
+    }
+    
+    #[Route('/cat/lost/{id}', name: 'cat-lost')]
+    public function catLost(EntityManagerInterface $em, int $id): Response
+    {
+        $cat = $em
+            ->getRepository(Cat::class)
+            ->findOneById($id);
+        $cat->setIsLost('true');
+        $em->persist($cat);
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
 }
