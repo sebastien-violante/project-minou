@@ -3,4 +3,29 @@ body {
     max-width: 1080px;
     margin: 0 auto;
     height: 100vh;
+    font-family: 'Montserrat';
+}
+
+@font-face
+{
+    font-family: 'Montserrat';
+    font-weight: lighter;
+    font-style: normal;
+    src: url('/assets/fonts/Montserrat-Light.ttf');
+}
+
+@font-face
+{
+    font-family: 'Montserrat';
+    font-weight: normal;
+    font-style: normal;
+    src: url('/assets/fonts/Montserrat-Medium.ttf');
+}
+
+@font-face
+{
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-style: normal;
+    src: url('/assets/fonts/Montserrat-SemiBold.ttf');
 }
