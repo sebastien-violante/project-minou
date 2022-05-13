@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CatRepository::class)]
@@ -39,6 +41,14 @@ class Cat
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $colorStyle;
+
+    #[ORM\OneToMany(mappedBy: 'cat', targetEntity: Report::class)]
+    private $reports;
+
+    public function __construct()
+    {
+        $this->reports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,6 +159,36 @@ class Cat
     public function setColorStyle(?string $colorStyle): self
     {
         $this->colorStyle = $colorStyle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Report>
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setCat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getCat() === $this) {
+                $report->setCat(null);
+            }
+        }
 
         return $this;
     }
