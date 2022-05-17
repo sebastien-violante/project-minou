@@ -9,6 +9,6 @@ import './slick/slick.min.js';
 import './responsive-slick';
 import './script.js';
 
-$(document).ready(function() {
+/* $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
-});
+}); */

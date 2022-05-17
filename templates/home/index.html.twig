@@ -21,21 +21,25 @@
 		</section>
 	</section>
     <section id="right">
-        <h1>Vos chats</h1>
+        <h1>chats</h1>
         <hr>
-        <section class="cats">
-            <div class="responsive">
-            {% for cat in cats %}
-                <div class="card">
-                    <p>{{ cat.name }}</p>
-                    <p>{{ cat.details }}</p>
-                    <p>{{ dump(cat.islost) }}</p>
-                    <a href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger" onclick="tolost()">Perdu ?</button></a>
+        {% if app.user %}
+            <section class="cats">
+                <div class="responsive">
+                {% for cat in cats %}
+                    <div class="card">
+                        <p>{{ cat.name }}</p>
+                        <p>{{ cat.details }}</p>
+                        <p>{{ dump(cat.islost) }}</p>
+                        {# <a id="islost" href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger">Perdu ?</button></a> #}
+                        <a id="isLost" href="{{ path('cat-lost', {id: cat.id})}}">Perdu ?</a>
+                    </div>
+                {% endfor %}   
                 </div>
-            {% endfor %}   
-            </div>
-        </section>
-        
+            </section>
+        {% else %}
+            <a href="{{ path('displaylost')}}">Signaler un chat</a>
+        {% endif %}
         <section class="soins">
             <h1>Les conseils des professionnels</h1>
             <hr>

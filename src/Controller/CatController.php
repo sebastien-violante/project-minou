@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cat;
 use App\Form\CatType;
 use App\Repository\CatRepository;
+use App\Service\Apiservice;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Mime\Address;
 
 class CatController extends AbstractController
 {
@@ -114,9 +116,30 @@ class CatController extends AbstractController
         $cat = $em
             ->getRepository(Cat::class)
             ->findOneById($id);
-        $cat->setIsLost('true');
-        $em->persist($cat);
-        $em->flush();
-        return $this->redirectToRoute('home');
+        if($cat->getIsLost() == true) {
+            $cat->setIsLost(false); 
+        } else {
+            $cat->setIsLost(true);}
+            $em->persist($cat);
+            $em->flush();
+            return $this->redirectToRoute('home');
+    }
+
+    #[Route('/cat/displaylost', name: 'displaylost')]
+    public function displayLost(
+        CatRepository $catRepository,
+        Apiservice $apiservice,
+        ): Response {
+            dd($apiservice->getData());
+        //trouver les coordonnées lat long actuelles
+
+
+
+        //faire une recherche sur l'API à partir de lat long pour déterminer la ville
+
+        $place='fondettes';
+        return $this->render('cat/displaylost.html.twig', [
+            'cats' => $catRepository->findBy(array('islost' => true, 'place' => $place)),
+        ]);
     }
 }

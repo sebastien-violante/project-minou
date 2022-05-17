@@ -15,11 +15,18 @@ class HomeController extends AbstractController
             ArticleRepository $articlesRepository,
             CatRepository $catRepository
         ): Response {
+        if ($this->getUser() == null) {
+            return $this->render('home/index.html.twig', [
+                'articles' => $articlesRepository->findAll(),
+                
+            ]);}
+        else {
         $email = $this->getUser()->getEmail();
                 
         return $this->render('home/index.html.twig', [
             'articles' => $articlesRepository->findAll(),
             'cats' => $catRepository->findByEmail($email),
         ]);
+    }
     }
 }
