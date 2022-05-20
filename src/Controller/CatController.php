@@ -125,19 +125,20 @@ class CatController extends AbstractController
             return $this->redirectToRoute('home');
     }
 
+    
     #[Route('/cat/displaylost', name: 'displaylost')]
     public function displayLost(
         CatRepository $catRepository,
         Apiservice $apiservice,
         ): Response {
-            dd($apiservice->getData());
+            $place = $apiservice->getData();
+            dd($place);
         //trouver les coordonnées lat long actuelles
 
 
 
         //faire une recherche sur l'API à partir de lat long pour déterminer la ville
 
-        $place='fondettes';
         return $this->render('cat/displaylost.html.twig', [
             'cats' => $catRepository->findBy(array('islost' => true, 'place' => $place)),
         ]);

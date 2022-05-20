@@ -10,7 +10,7 @@
 		{% for article in articles %}
 			<article>
                 <div class="article-picture">
-                    <img class="article-picture-background" src='/pictures/{{article.picture}}'>
+                    {# <img class="article-picture-background" src='/pictures/{{article.picture}}'> #}
                 </div>
                 <h1 class="article-title">{{ article.title }}</h1>
                 <p>{{ article.date|date('Y-m-d H:i') }}</p>
@@ -30,9 +30,11 @@
                     <div class="card">
                         <p>{{ cat.name }}</p>
                         <p>{{ cat.details }}</p>
-                        <p>{{ dump(cat.islost) }}</p>
+                        <p>{{ cat.islost }}</p>
                         {# <a id="islost" href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger">Perdu ?</button></a> #}
-                        <a id="isLost" href="{{ path('cat-lost', {id: cat.id})}}">Perdu ?</a>
+                        <i class="fa-solid fa-house-blank"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">Perdu ?</a>
                     </div>
                 {% endfor %}   
                 </div>
@@ -53,4 +55,23 @@
 
     </section>  
 </section>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function changeStatus(event) {
+            event.preventDefault();
+            const url = this.href;
+            axios.get(url).then(function(response){
+                console.log(response);
+            })
+            };
+        
+        document.querySelectorAll('a.js-lost').forEach(function(lost){
+            lost.addEventListener('click', changeStatus);
+        });
+        
+</script>
+{% endblock %}
+
+{% block javascripts %}
+   
 {% endblock %}
