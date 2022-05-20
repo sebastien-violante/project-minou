@@ -25,19 +25,25 @@
         <hr>
         {% if app.user %}
             <section class="cats">
-                <div class="responsive">
+                <article class="responsive">
                 {% for cat in cats %}
                     <div class="card">
-                        <p>{{ cat.name }}</p>
+                        <div class="topcard">
+                            <p>{{ cat.name }}</p>
+                            <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">
+                                {% if cat.islost == false %}
+                                    <i class="fa-solid fa-house-chimney"></i>
+                                {% else %} 
+                                    <i class="fa-solid fa-magnifying-glass"></i>   
+                                {% endif %}
+                            </a>
+                        </div>
+                        <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
                         <p>{{ cat.details }}</p>
-                        <p>{{ cat.islost }}</p>
-                        {# <a id="islost" href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger">Perdu ?</button></a> #}
-                        <i class="fa-solid fa-house-blank"></i>
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">Perdu ?</a>
+                        
                     </div>
                 {% endfor %}   
-                </div>
+                </article>
             </section>
         {% else %}
             <a href="{{ path('displaylost')}}">Signaler un chat</a>
@@ -60,9 +66,17 @@
         function changeStatus(event) {
             event.preventDefault();
             const url = this.href;
+            const icone = this.querySelector('i');
+            console.log(icone);
             axios.get(url).then(function(response){
-                console.log(response);
-            })
+                
+                if(icone.classList.contains('fa-magnifying-glass')) {
+                    
+                    icone.classList.replace('fa-magnifying-glass','fa-house-chimney');
+                } else { 
+                    
+                    icone.classList.replace('fa-house-chimney', 'fa-magnifying-glass');
+        }})
             };
         
         document.querySelectorAll('a.js-lost').forEach(function(lost){
@@ -70,8 +84,6 @@
         });
         
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 {% endblock %}
 
-{% block javascripts %}
-   
-{% endblock %}
