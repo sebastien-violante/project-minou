@@ -1,4 +1,5 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 @import '/assets/slick/slick.css';
 @import '/assets/slick/slick-theme.css';
 @import "~bootstrap/scss/bootstrap";
@@ -6,5 +7,4 @@
 @import 'home.scss';
 @import 'variables.scss';
 @import '_header.scss';
-@import '_footer.scss';
 @import 'articles.scss';

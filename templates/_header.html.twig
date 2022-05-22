@@ -1,29 +1,38 @@
-<div class="header">
-    <nav>
-            {% if app.user is not empty %}
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-  </li>
-  <li>
-    <p>{{ dump(app.user.pseudo) }}</p>
-  </li>
-</ul>
+<section id="sticky">
+  <section id="logo">
+      <img class="header-cat-picture" src="/pictures/bluecat.svg"</img>
+      <p>MIN<span>OU ?</span></p>
+  </section>
+  <header id="navbar" class="navi">
+      <div class="dropdown">
+        <button>Administrer</button>
+        <div class="content">
+            <a href="">Articles</a>
+            <a href="">Utilisateurs</a>
+            <a href="">Messages</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Chats</button>
+        <div class="content">
+            <a href="">Nouveau</a>
+            <a href="">Liste</a>
+        </div>
+      </div>
+      <a href="">C.G.U.</a>
+      <a href="">Contact</a>
+      <a class="icon" onclick="navDeploy()">&#9776;</a>   
+  </header>
+</section>
 
-
-            {% else %}
-                <li>Accueil</li>
-            {% endif %}
-    </nav>
-</div>
+<script>
+    function navDeploy() {
+        var x = document.getElementById("navbar");
+        if(x.className === "navi") {
+          x.className += " responsive";
+          } else {
+            x.className = "navi";
+        }
+    }
+</script>
 

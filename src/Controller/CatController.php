@@ -27,51 +27,6 @@ class CatController extends AbstractController
     }
 
     #[Route('/cat/new', name: 'new_cat')]
-    
-   /*  public function newCat(
-        Request $request,
-        ManagerRegistry $doctrine,
-        CatRepository $catRepository
-    ) : Response {
-        $em = $doctrine->getManager();
-        $cat = new Cat();
-        $form = $this->createForm(CatType::class, $cat);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $email = $this->getUser()->getEmail();
-            $cat->setEmail($email);
-            $cat->setIslost(false);
-            $catRepository->add($cat);
-            $picture = $form->get('picture')->getData();
-            dd($picture);
-            if ($picture instanceof UploadedFile && $cat instanceof Cat) {
-                $newFilename = 'cat' . '-' . rand(1,100000). '.' . $picture->guessExtension();
-                if (is_string($this->getParameter('picture_directory'))) {
-                    try {
-                        $picture->move(
-                            $this->getParameter('picture_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        return $this->render('errors/error500.html.twig');
-                    }
-                }
-            }
-            $cat->setPicture($newFilename);
-            $email = $this->getUser()->getEmail();
-            $em->persist($cat);
-            $em->flush();
-
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('cat/new.html.twig', [
-            'cat' => $cat,
-            'form' => $form,
-        ]); 
-    } */
-
     public function newCat(
         Request $request,
         ManagerRegistry $doctrine,
