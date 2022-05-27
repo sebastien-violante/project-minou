@@ -11,14 +11,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
+
 
 class CatType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name')
             ->add('race', EntityType::class, [
                 'class' => Breed::class,
                 'multiple' => true,
@@ -35,9 +35,9 @@ class CatType extends AbstractType
                     ])
                 ],
             ])
-            ->add('details', Texttype::class)
-            ->add('place', Texttype::class)
-            ->add('colorstyle', Texttype::class)
+            ->add('details')
+            ->add('place')
+            ->add('colorstyle')
         ;
     }
 

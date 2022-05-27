@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Cat;
 use App\Form\CatType;
-use App\Repository\CatRepository;
 use App\Service\Apiservice;
+use App\Form\DisplayChoiceType;
+use App\Repository\CatRepository;
+use Symfony\Component\Mime\Address;
+use App\Repository\ReportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Mime\Address;
 
 class CatController extends AbstractController
 {
@@ -30,7 +33,8 @@ class CatController extends AbstractController
     public function newCat(
         Request $request,
         ManagerRegistry $doctrine,
-    ): Response {
+    ): Response 
+    {
         $cat = new Cat();
         $form = $this->createForm(CatType::class, $cat);
         $form->handleRequest($request);
@@ -39,7 +43,7 @@ class CatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em= $doctrine->getManager();
             $cat->setEmail($mail);
-            
+            $cat->setIslost(false);
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $cat instanceof Cat) {
                 $newFilename = 'cat' . '-' . $cat->getName() . '.' . $picture->guessExtension();
@@ -54,7 +58,7 @@ class CatController extends AbstractController
                     }
                 }
                 $cat->setPicture($newFilename);
-                $cat->setIslost(false);
+                
             }
             $em->persist($cat);
             $em->flush();
@@ -74,28 +78,72 @@ class CatController extends AbstractController
         if($cat->getIsLost() == true) {
             $cat->setIsLost(false); 
         } else {
-            $cat->setIsLost(true);}
+            $cat->setIsLost(true);
+        }
             $em->persist($cat);
             $em->flush();
             return $this->redirectToRoute('home');
     }
 
-    
-    #[Route('/cat/displaylost', name: 'displaylost')]
-    public function displayLost(
+    #[Route('/cat/displaychoice', name: 'displaychoice')]
+    public function displaychoice(
+        Request $request,
         CatRepository $catRepository,
-        Apiservice $apiservice,
-        ): Response {
-            $place = $apiservice->getData();
-            dd($place);
-        //trouver les coordonnées lat long actuelles
+        Apiservice $townapi,
+    ): Response 
+    {
+        
+        if($request->request->count() > 0) {
+            $place = $request->request->get('Ville');
+            $color1 = $request->request->get('color1');
+            $color2 = $request->request->get('color2');
+            $color3 = $request->request->get('color3');
+            $lat=47;
+            $long=0.6;
+            $cats = $catRepository->findBy(
+                ['place' => $place,
+                'islost' => true]);
+            try {
+                $town = json_decode($townapi->getData($lat, $long));
+                
+            } catch (Exception $exception) {
+                $place = null;
+            }
+            
+            return $this->render('cat/displaylost.html.twig', [
+                'cats' => $cats,
+                'place' => $place,
+            ]);
+        }
+        return $this->render('cat/displaychoice.html.twig', [
+            
+        ]);
+    }
 
-
-
-        //faire une recherche sur l'API à partir de lat long pour déterminer la ville
+     
+    #[Route('/cat/displaylost', name: 'displaylost')]
+    public function displayLost(): Response 
+    {
+        
 
         return $this->render('cat/displaylost.html.twig', [
-            'cats' => $catRepository->findBy(array('islost' => true, 'place' => $place)),
+            
+        ]);
+    }
+
+    /**
+     * @Route("/cat/displayreport/{id}", name="displayreport")
+     */
+    public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
+    {
+        $reports = $reportRepository->findBy(['cat' => $id]);
+        $cat = $catRepository->findOneBy(['id' => $id]);
+        $date = new \DateTime();
+        $date = $date->format('Y-m-d H:i:s');
+        return $this->render('cat/localize.html.twig', [
+            'reports' => $reports, 
+            'date' => $date,
+            'cat' => $cat,
         ]);
     }
 }

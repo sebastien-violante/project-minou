@@ -41,6 +41,7 @@ class HomeController extends AbstractController
         } else {
             $cat->setIslost(false);
         }
+        $cat->setDatelost(new \DateTime());
         $em->persist($cat);
         $em->flush();
 
@@ -50,4 +51,5 @@ class HomeController extends AbstractController
             'status' => $catRepository->findOneById($id)->getIslost()], 200);
 
     }
+
 }

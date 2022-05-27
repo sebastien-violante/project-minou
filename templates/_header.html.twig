@@ -4,14 +4,18 @@
       <p>MIN<span>OU ?</span></p>
   </section>
   <header id="navbar" class="navi">
+
+      {% if app.user and app.user.roles.0 in ['ROLE_ADMIN'] %}
       <div class="dropdown">
-        <button>Administrer</button>
-        <div class="content">
-            <a href="">Articles</a>
-            <a href="">Utilisateurs</a>
-            <a href="">Messages</a>
-        </div>
+            <button>Administrer</button>
+            <div class="content">
+                <a href="">Articles</a>
+                <a href="">Utilisateurs</a>
+                <a href="">Messages</a>
+            </div>
       </div>
+      {% endif %}
+      {% if app.user %}
       <div class="dropdown">
         <button>Chats</button>
         <div class="content">
@@ -19,8 +23,14 @@
             <a href="">Liste</a>
         </div>
       </div>
+      {% endif %}
       <a href="">C.G.U.</a>
       <a href="">Contact</a>
+      {% if app.user %}
+      <a href="logout">Déconnexion</a>
+      {% else %}
+      <a href="login">Connexion</a>
+      {% endif %}
       <a class="icon" onclick="navDeploy()">&#9776;</a>   
   </header>
 </section>

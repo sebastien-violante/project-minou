@@ -8,19 +8,22 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-   <section class="cats">
-                <div class="responsive">
-                {% for cat in cats %}
-                    <div class="card">
-                        <p>{{ cat.name }}</p>
-                        <p>{{ cat.details }}</p>
-                        <p>{{ dump(cat.islost) }}</p>
-                        {# <a id="islost" href="{{ path("cat-lost", {"id": cat.id }) }}"><button id="{{ cat.id }}" type="button" class="btn btn-outline-danger">Perdu ?</button></a> #}
-                        <a id="isLost" href="{{ path('cat-lost', {id: cat.id})}}">Signaler</a>
-                    </div>
-                {% endfor %}   
-                </div>
-            </section>
+<div class="displaylost">
+    <h2>liste des chats perdus sur la commune de {{ place }} </h2>
+    <article class="responsive">
+    {% for cat in cats %}
+        <div class="card">
+            <div class="topcard">
+                <p>{{ cat.name }}</p>
+                <p>Déclaré perdu :<br>{{ cat.datelost ? cat.datelost|date('Y-m-d H:i:s') : '' }}</p>
+                
+            </div>
+            <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
+            
+            <p>Signes distinctifs :<br> {{ cat.details }}</p>
+            <a href="{{ path("report", {"cat_id": cat.id }) }}" class="btn btn-warning">Signaler</a>
+        </div>
+    {% endfor %}
+    </article>   
 </div>
 {% endblock %}

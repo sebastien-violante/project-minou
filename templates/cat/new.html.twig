@@ -35,22 +35,75 @@
                 {{ form_label(form.picture, 'photo :', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.picture, {'attr': {'class': 'form-control'}}) }}
                 </p>
-                <div id="colorstyle">
-                    <div class="blurb" id="blue"></div>
-                    <div class="blurb" id="black"></div>
-                    <div class="blurb" id="white"></div>
-                    <div class="blurb" id="brown"></div>
-                    <div class="blurb" id="grey"></div>
-                </div>
-                <script>let colorStyle = "ABCCD"</script>
-                <p>
+                  {#  <div id="container">
+        <div id="eyes">
+            <h3>Couleur des yeux</h3>
+            <div id="eyescolors">
+                <div class="blurb" id="B" style="background-color: #87aed1">Bleus</div>
+                <div class="blurb" id="R" style="background-color: #92794c">Marron</div>
+                <div class="blurb" id="Y" style="background-color: #e1b700">Jaunes</div>
+                <div class="blurb" id="G" style="background-color: #4a8910">Verts</div>
+            </div>
+        </div>
+
+        <div id="pattern">
+            <h3>Type de robe</h3>
+            <div id="patterntype">
+                <div class="blurb" id="P">Unie</div>
+                <div class="blurb" id="S">Rayée</div>
+                <div class="blurb" id="P">Tâchetée</div>
+            </div>
+        </div>
+
+        <div id="color">
+            <h3>Couleurs de la robe</h3>
+            <div id="colors">
+                <div class="blurb" id="W" style="background-color: #fff"></div>
+                <div class="blurb" id="K" style="background-color: #000"></div>
+                <div class="blurb" id="N" style="background-color: #973b0ad8"></div>
+                <div class="blurb" id="Y" style="background-color: #a5a6a3"></div>
+                <div class="blurb" id="G" style="background-color: #df6406"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p id="colorresult"></p> #}
+
+   {#  <script>
+let colorResult = [];
+let blurbs = document.getElementsByClassName('blurb');
+console.log(blurbs);
+
+for(let blurb of blurbs) {
+    blurb.addEventListener('click', (e) => {
+        
+      if(e.currentTarget.style.border == "" || e.currentTarget.style.border == "2px solid darkgray") {
+            e.currentTarget.style.border = "3px solid red";
+        } else {
+            e.currentTarget.style.border = "3px solid darkgray";
+        }; 
+        console.log(e.currentTarget.style.border);
+        // if need is selected, store it. Else, remove it
+        if(colorResult.includes(e.currentTarget.id)) {
+            colorResult = colorResult.filter(code => code !== e.currentTarget.id);
+        } else {
+            colorResult.push(e.currentTarget.id);
+        };
+       document.getElementById("colorresult").innerHTML = `${colorResult.join('')}`;
+       
+    })
+};
+    </script> #}
+                 <p>
                 {{ form_label(form.colorstyle, 'couleur :', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.colorstyle, {'attr': {'class': 'form-control'}}) }}
-
+                </p>
+                
+                <p>
                 {{ form_label(form.details, 'signe :', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.details, {'attr': {'class': 'form-control'}}) }}
                 </p>
-                 <p>
+                <p>
                 {{ form_label(form.place, 'commune de résidence :', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.place, {'attr': {'class': 'form-control'}}) }}
                 </p>

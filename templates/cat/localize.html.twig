@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CatController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+</style>
+
+
+<div class="displaylost">
+    <h3>Localisation de XXX </h3>
+    <p>Votre chat <strong>{{ cat.name}}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
+    <br>
+    <p>Synthèse à la date du :{{ date|date('d-m-Y')  }}</p>
+       
+
+
+<table>
+  <tr>
+    <td>Date</td>
+    <td>Latitude</td>
+    <td>Logitude</td>
+    <td>Etat de santé</td>
+    <td>Message du lanceur d'alerte</td>
+  </tr>
+  {% for report in reports %}
+  <tr>
+    <td>{{  report.date|date('d-m-Y H : i') }}</td>
+    <td>{{  report.coordx }}</td>
+    <td>{{  report.coordy }}</td>
+    <td>{{  report.status }}</td>
+    <td>{{  report.message }}</td>
+  </tr>
+   {% endfor %}
+</table>
+
+{# Display mapbox #}
+<div id='map' style='width: 800px; height: 800px;'></div>
+<script>
+    mapboxgl.accessToken = 
+    'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbGliazJpMDBncDNjcGpjcmQyOXcxZSJ9.1kWjyl5N_8jbXnAE9Y2Jnw';
+    const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [0.59, 47.4],
+zoom: 12
+});
+ 
+map.on('load', () => {
+// Add an image to use as a custom marker
+map.loadImage(
+'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
+(error, image) => {
+if (error) throw error;
+map.addImage('custom-marker', image);
+// Add a GeoJSON source with 2 points
+map.addSource('points', {
+'type': 'geojson',
+'data': {
+'type': 'FeatureCollection',
+'features': [
+{
+// feature for Mapbox DC
+'type': 'Feature',
+'geometry': {
+'type': 'Point',
+'coordinates': [
+0.59, 47.4
+]
+},
+'properties': {
+'title': '1'
+}
+},
+{
+// feature for Mapbox SF
+'type': 'Feature',
+'geometry': {
+'type': 'Point',
+'coordinates': [0.60, 47.39]
+},
+'properties': {
+'title': '2'
+}
+}
+]
+}
+});
+ 
+// Add a symbol layer
+map.addLayer({
+'id': 'points',
+'type': 'symbol',
+'source': 'points',
+'layout': {
+'icon-image': 'custom-marker',
+// get the title name from the source's "title" property
+'text-field': ['get', 'title'],
+'text-font': [
+'Open Sans Semibold',
+'Arial Unicode MS Bold'
+],
+'text-offset': [0, 1.25],
+'text-anchor': 'top'
+}
+});
+}
+);
+});
+</script>
+
+
+
+</div>
+{% endblock %}

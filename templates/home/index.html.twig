@@ -25,7 +25,7 @@
         <hr>
         {% if app.user %}
             <section class="cats">
-                <article class="responsive">
+               
                 {% for cat in cats %}
                     <div class="card">
                         <div class="topcard">
@@ -39,14 +39,15 @@
                             </a>
                         </div>
                         <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
-                        <p>{{ cat.details }}</p>
-                        
+                        {% if cat.islost %}
+                        <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-success localize">Localiser</a>
+                        {% endif %}
                     </div>
                 {% endfor %}   
-                </article>
+                
             </section>
         {% else %}
-            <a href="{{ path('displaylost')}}">Signaler un chat</a>
+            <a href="{{ path('displaychoice')}}">Signaler un chat</a>
         {% endif %}
         <section class="soins">
             <h1>Les conseils des professionnels</h1>
@@ -61,6 +62,7 @@
 
     </section>  
 </section>
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         function changeStatus(event) {
