@@ -8,7 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
 </style>
-
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 
 <div class="displaylost">
     <h3>Localisation de XXX </h3>
@@ -37,79 +37,76 @@
    {% endfor %}
 </table>
 
-{# Display mapbox #}
+{# to catch the cat number and use it to complete the ajax url path #}
+<div class="js-cat-number" data-is-authenticated="{{ cat.id }}"></div>
+
+
+{# to dysplays points of interest #}
 <div id='map' style='width: 800px; height: 800px;'></div>
+
+
+{# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+ #}
+
+{# to retrieve reports in json format from the database #}
 <script>
-    mapboxgl.accessToken = 
-    'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbGliazJpMDBncDNjcGpjcmQyOXcxZSJ9.1kWjyl5N_8jbXnAE9Y2Jnw';
-    const map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [0.59, 47.4],
-zoom: 12
+let currentDate = new Date().getTime();
+
+
+{# following...to catch the cat number and use it to complete the ajax url path #}
+document.addEventListener('DOMContentLoaded', function() {
+    var cat = document.querySelector('.js-cat-number');
+    var number = cat.dataset.isAuthenticated;
+    
+    fetch(`/api/post/${number}`)
+    .then((resp) => resp.json())
+    .then(function(resp){
+        
+        let xPositions = [];
+        let yPositions = [];
+        resp.forEach(function(y){
+            yPositions.push(y.coordy);
+            xPositions.push(y.coordx);
+        });
+        xCenter = xPositions[xPositions.length - 1];
+        yCenter = yPositions[yPositions.length - 1];
+        console.log(xCenter);
+        console.log(yCenter);
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbGliazJpMDBncDNjcGpjcmQyOXcxZSJ9.1kWjyl5N_8jbXnAE9Y2Jnw';
+        const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [yCenter, xCenter], // starting position [lng, lat]
+        zoom: 14 // starting zoom
+        })
+        
+        resp.forEach(function(y){
+            // Create a default Marker, colored black, rotated 45 degrees.
+            const marker = new mapboxgl.Marker({ 
+              
+              color: 'blue',
+              rotation: 45 })
+            .setLngLat([y.coordy, y.coordx])
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML(
+                `<p>${y.date}</p>`
+        ))
+            .addTo(map);
+        })
+        
+        }
+        
+    )
+    .catch(function(error){
+
+    })
+    
 });
- 
-map.on('load', () => {
-// Add an image to use as a custom marker
-map.loadImage(
-'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
-(error, image) => {
-if (error) throw error;
-map.addImage('custom-marker', image);
-// Add a GeoJSON source with 2 points
-map.addSource('points', {
-'type': 'geojson',
-'data': {
-'type': 'FeatureCollection',
-'features': [
-{
-// feature for Mapbox DC
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [
-0.59, 47.4
-]
-},
-'properties': {
-'title': '1'
-}
-},
-{
-// feature for Mapbox SF
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [0.60, 47.39]
-},
-'properties': {
-'title': '2'
-}
-}
-]
-}
-});
- 
-// Add a symbol layer
-map.addLayer({
-'id': 'points',
-'type': 'symbol',
-'source': 'points',
-'layout': {
-'icon-image': 'custom-marker',
-// get the title name from the source's "title" property
-'text-field': ['get', 'title'],
-'text-font': [
-'Open Sans Semibold',
-'Arial Unicode MS Bold'
-],
-'text-offset': [0, 1.25],
-'text-anchor': 'top'
-}
-});
-}
-);
-});
+
+
+
+
 </script>
 
 

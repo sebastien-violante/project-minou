@@ -49,7 +49,8 @@ class HomeController extends AbstractController
             'code' => 200,
             'message' => "changement de statut ok",
             'status' => $catRepository->findOneById($id)->getIslost()], 200);
-
     }
+
+    
 
 }

@@ -134,7 +134,7 @@ class CatController extends AbstractController
     /**
      * @Route("/cat/displayreport/{id}", name="displayreport")
      */
-    public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
+   public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
     {
         $reports = $reportRepository->findBy(['cat' => $id]);
         $cat = $catRepository->findOneBy(['id' => $id]);

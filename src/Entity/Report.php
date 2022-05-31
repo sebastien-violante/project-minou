@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
 class Report
@@ -11,21 +12,27 @@ class Report
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('reports')]
     private $id;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups('reports')]
     private $date;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('reports')]
     private $coordx;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('reports')]
     private $coordy;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups('reports')]
     private $message;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups('reports')]
     private $status;
 
     #[ORM\ManyToOne(targetEntity: Cat::class, inversedBy: 'reports')]
