@@ -12,17 +12,39 @@
    
 <h2>Signaler un chat</h2>
 <br>
-<form action="" method="post">
-    <input type="text" name="Ville">
-    <p>Vous pouvez affiner votre recherche en précisant jusqu'à trois couleurs</p>
-    <input type="text" name="color1" placeholder="première couleur">
-    <input type="text" name="color2" placeholder="deuxième couleur">
-    <input type="text" name="color3" placeholder="troisième couleur">
-    <button type="submit">Validez vos critères de recherche</button>
-</form>
+
+    <p>Vos coordonnées sont les suivantes :</p>
+    <input type="text" id="coordx" name="coordx">
+    <input type="text" id="coordy" name="coordy">
+    <input type="text" name="place">
+
 
 </div>
 
+<script>
+    let coordx = document.getElementById('coordx');
+    let coordy = document.getElementById('coordy');
+
+   // if geolocation is activated, init function getPosition to catch current position
+    if (navigator.geolocation)
+        {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    else{x.innerHTML="Geolocation n’est pas prise en charge par ce navigateur.";}
+
+    function showPosition(position)
+    {
+    // variables initiated to store positions
+    let xposition = position.coords.longitude;
+    let yposition = position.coords.latitude;
+    // update input value to display coords
+    document.getElementById('coordx').value = xposition;
+    document.getElementById('coordy').value = yposition;
+    // ajax on API service to catch place
+    }
+
+
+</script>
 {# <script src="https://maps.googleapis.com/maps/api/js?
 key=AIzaSyAJaDs8GhvKgIfGrMyp4D924YCoTryGgn0&library=places
 &callback=initAutocomplete" async defer></script> #}

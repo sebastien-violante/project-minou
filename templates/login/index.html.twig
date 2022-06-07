@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %} {{ parent() }} - Connexion{% endblock %}
 
 {% block body %}
 <style>
@@ -8,39 +8,30 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Connectez-vous</h1>
+<div class="login" >
+    <img src="/pictures/cat-blue-eyes.webp" id="cat-connexion-picture">
+    <p>Saisissez votre identifiant et votre mot de passe pour vous connecter à l'application</p>
     <hr>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    
     <form action="{{ path('login') }}" method="post">
     <div class="mb-3">
         <label for="username" class="form-label">Email</label>
         <input type="email" class="form-control" id="username" name="_username" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        
+        <div id="emailHelp" class="form-text">Votre email ne sera pas communiqué aux autres utilisateurs de la palteforme. Pour plus de détails, lisez les conditions générales d'utilisation.</div>
     </div>
-
-
-
-    
-        {# <label for="username">Email:</label>
-        <input type="text" id="username" name="_username"     value="{{ last_username }}"/> #}
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-
+    <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="_password"/>
+    </div>
         {# on succes, redirect user to home page #}
         <input type="hidden" name="_target_path" value="/home"/>
-
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <button type="submit">login</button>
+        <button type="submit" class="btn btn-success">Connexion</button>
     </form>
-
     <a class="nav-link active" href="{{ path('app_register') }}"><span>Pas encore de compte ? C'est par </span>ici</a>
-    
 </div>
 
 {% endblock %}

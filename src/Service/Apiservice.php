@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Exception;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Apiservice
@@ -16,7 +17,7 @@ private $client;
     }
     
     // définition de la fonction qui récupère les données
-        public function getData(): array
+    public function getData(): array
     {
         $response = $this->client->request(
             'GET',
@@ -26,13 +27,21 @@ private $client;
         return $response->toArray();
     }
 
-    public function getPlace($lat, $long): array
+    public function getPlace($lat, $long): string
     {
-        $response = $this->client->request(
-            'GET',
-            'https://api.mapbox.com/geocoding/v5/mapbox.places/'.$lat.','.$long.'.json?'
-        );
         
-        return $response->toArray();
+        try {
+            $response = $this->client->request(
+                'GET',
+                "https://api.myptv.com/geocoding/v1/locations/by-position/{$long}/{$lat}?apiKey=N2E0MWVmODFlNzk4NDc0Zjk0ZjVjN2U4NzdlYzdhZDY6MTQ3NDEzNTQtNjFhOC00YWY1LTk3NWEtNDVjZmFkYWJmZWQw"
+            );
+            
+            return $response->getContent();
+        } catch (Exception $exception) {
+            throw new Exception('Localisation API error');
+        }
     }
 }
+
+/* PTV Developper API key
+N2E0MWVmODFlNzk4NDc0Zjk0ZjVjN2U4NzdlYzdhZDY6MTQ3NDEzNTQtNjFhOC00YWY1LTk3NWEtNDVjZmFkYWJmZWQw */

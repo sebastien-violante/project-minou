@@ -1,0 +1,48 @@
+.catregister {
+    margin: 2rem auto;;
+    padding: 1rem;
+    width: 80%;
+    min-width: 180px;
+    box-shadow: 0px 1px 3px grey;
+}
+
+#cat-register-button {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+#colors, #patterntype, #eyescolors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#eyes, #pattern, #color {
+    width: 50%;
+    min-width: 150px;
+    margin: 0.5rem auto;
+    display: block;
+}
+
+#eyes > p {
+    width: 180px;
+}
+
+.logo {
+    height: 50px;
+    width: 50px;
+}
+
+.simple-color {
+    border-radius: 50%;
+}
+
+.type {
+    display: block;
+    text-align: center;
+}
+
+
+

@@ -12,20 +12,16 @@
     <h1>Signalez un chat</h1>
 
     <p>Vous êtes sur le point de signaler NOM du CHAT</p>
-
+    {{ form_start(form) }}
     <p>Vous êtes situé(e) aux coordonnées suivantes</p>
     <div id="infoposition"></div>
-    <p>Veuillez remplir le formulaire suivant pour préciser votre signalement</p>
-    {{ form_start(form) }}
-            <div class="comment_form">
-                <p>
-                {{ form_label(form.coordx, 'coordonnée X :', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.coordx, {'attr': {'class': 'form-control'}}) }}
-                </p>
-                <p>
-                {{ form_label(form.coordy, 'coordonnée Y :', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.coordy, {'attr': {'class': 'form-control'}}) }}
-                </p>
+    
+    {{ form_widget(form.coordx) }}
+    {{ form_widget(form.coordy) }}
+    <div class="comment_form">
+                
+        
+        <p>Veuillez remplir le formulaire suivant pour préciser votre signalement</p>
                 <p>
                 {{ form_label(form.message, 'message :', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
@@ -36,37 +32,34 @@
                 </p>
                 <br>
                 <button type="submit" class="btn btn-warning" onclick="return confirm('Attention, les informations que vous fournissez seront transmises au propriétaire du chat');">Enregistrer</button>
+            </div>
     {{ form_end(form) }}
-<script>
-function maPosition(position) {
-  var infopos = "Position déterminée :\n";
-  infopos += "Latitude : "+position.coords.latitude +"\n";
-  infopos += "Longitude: "+position.coords.longitude+"\n";
-  document.getElementById("infoposition").innerHTML = infopos;
+</div>
 
-}
-function erreurPosition(error) {
-    var info = "Erreur lors de la géolocalisation : ";
-    switch(error.code) {
-    case error.TIMEOUT:
-    	info += "Timeout !";
-    break;
-    case error.PERMISSION_DENIED:
-	info += "Vous n’avez pas donné la permission";
-    break;
-    case error.POSITION_UNAVAILABLE:
-    	info += "La position n’a pu être déterminée";
-    break;
-    case error.UNKNOWN_ERROR:
-    	info += "Erreur inconnue";
-    break;
-    }
-}
-if(navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(maPosition, erreurPosition);
+<script>
+    let coordx = document.getElementById('report_coordx');
+    let coordy = document.getElementById('report_coordy');
+    // if geolocation is activated, init function getPosition to catch current position
+    function showPosition(position)
+    {
+        // variables initiated to store positions
+        let xposition = position.coords.longitude;
+        let yposition = position.coords.latitude;
+        // update input value to display coords
+        coordx.value = xposition;
+        coordy.value = yposition;
+    };
+    if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    else
+        {
+            x.innerHTML="Geolocation n’est pas prise en charge par ce navigateur.";
+        }
 </script>
 
 
   
-</div>
+
 {% endblock %}

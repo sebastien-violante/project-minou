@@ -89,7 +89,7 @@ class CatController extends AbstractController
     public function displaychoice(
         Request $request,
         CatRepository $catRepository,
-        Apiservice $townapi,
+        Apiservice $getPlace,
     ): Response 
     {
         
@@ -122,9 +122,14 @@ class CatController extends AbstractController
 
      
     #[Route('/cat/displaylost', name: 'displaylost')]
-    public function displayLost(): Response 
+    public function displayLost(float $lat, float $long, Apiservice $apiservice): Response 
     {
-        
+        try {
+            $details = json_decode($apiservice->getPlace($lat, $long), true);
+        } catch (Exception $exception) {
+            $details = null;
+        }
+        dd($details);
 
         return $this->render('cat/displaylost.html.twig', [
             

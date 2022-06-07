@@ -10,6 +10,7 @@
 </style>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 
+
 <div class="displaylost">
     <h3>Localisation de XXX </h3>
     <p>Votre chat <strong>{{ cat.name}}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
@@ -50,8 +51,8 @@
 
 {# to retrieve reports in json format from the database #}
 <script>
-let currentDate = new Date().getTime();
-
+//current date modified to compare it with report dates
+let currentDate = Date.parse(new Date());
 
 {# following...to catch the cat number and use it to complete the ajax url path #}
 document.addEventListener('DOMContentLoaded', function() {
@@ -64,34 +65,72 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let xPositions = [];
         let yPositions = [];
+        let zoomLevel = 10;
         resp.forEach(function(y){
-            yPositions.push(y.coordy);
-            xPositions.push(y.coordx);
+            yPositions.push(parseFloat(y.coordy));
+            xPositions.push(parseFloat(y.coordx));
         });
         xCenter = xPositions[xPositions.length - 1];
         yCenter = yPositions[yPositions.length - 1];
         console.log(xCenter);
         console.log(yCenter);
+        // détermination des écarts max en latitude et longitude
+        console.log(xPositions);
+        var xmin = Math.min(...xPositions);
+        var ymin = Math.min(...yPositions);
+        var xmax = Math.max(...xPositions);
+        var ymax = Math.max(...yPositions);
+        // détermination des écarts max en distance
+        xdelta = (xmax-xmin)*111;
+        ydelta = (ymax-ymin)*78.5;
+        // détermination du zoom adéquat
+        if(xdelta < 46.84 && ydelta < 46.84) {
+          zoomLevel = 11;
+        }
+        if(xdelta < 23.4 && ydelta < 23.4){
+          zoomLevel = 12;
+        }
+        if(xdelta < 11.71 && ydelta < 11.71){
+          zoomLevel = 13;
+        }
+        if(xdelta < 5.85 && ydelta < 5.85){
+          zoomLevel = 14;
+        }
+        if(xdelta < 2.92 && ydelta < 2.92){
+          zoomLevel = 15;
+        }
+        console.log(zoomLevel);       
+     
+
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbGliazJpMDBncDNjcGpjcmQyOXcxZSJ9.1kWjyl5N_8jbXnAE9Y2Jnw';
         const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [yCenter, xCenter], // starting position [lng, lat]
-        zoom: 14 // starting zoom
+        zoom: zoomLevel // starting zoom
         })
         
         resp.forEach(function(y){
+            let delay =((currentDate - Date.parse(y.date))/3600000);
+            let markerColor = 'red';
+            if(delay < 48) {
+              markerColor = 'blue';
+            }
+            if(delay < 24) {
+               markerColor = 'green';
+            }
+            console.log(markerColor)
             // Create a default Marker, colored black, rotated 45 degrees.
-            const marker = new mapboxgl.Marker({ 
-              
-              color: 'blue',
+            const marker = new mapboxgl.Marker({
+              color: markerColor,
               rotation: 45 })
             .setLngLat([y.coordy, y.coordx])
             .setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                 .setHTML(
-                `<p>${y.date}</p>`
-        ))
+                `<h5>${y.date}</h5>`
+                )
+            )
             .addTo(map);
         })
         

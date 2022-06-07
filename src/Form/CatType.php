@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 class CatType extends AbstractType
@@ -37,7 +38,7 @@ class CatType extends AbstractType
             ])
             ->add('details')
             ->add('place')
-            ->add('colorstyle')
+            ->add('colorstyle', HiddenType::class)
         ;
     }
 

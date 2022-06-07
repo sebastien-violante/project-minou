@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Cat;
+use App\Form\SearchType;
+use App\Service\Apiservice;
 use App\Repository\CatRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,20 +20,40 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'home')]
         public function index(
             ArticleRepository $articlesRepository,
-            CatRepository $catRepository
+            CatRepository $catRepository,
+            Request $request,
+            Apiservice $apiservice,
         ): Response {
         if ($this->getUser() == null) {
+            //partie pour le traiment du formulaire lançant la recherche des chats perdus
+            $form = $this->createForm(SearchType::class);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $coordx = $form->getData()['coordx'];
+                $coordy = $form->getData()['coordy'];
+                try {
+                    $place = json_decode($apiservice->getPlace($coordx, $coordy), true)['locations'][0]['address']['city'];
+                } catch (Exception $exception) {
+                    $place = null;
+                }
+                return $this->render('cat/displaylost.html.twig',[
+                    'cats' => $catRepository->findByPlace($place),
+                    'place' => $place,
+                    ]);;
+            }
+        //////////////////////////////////////////////////////////////////////////////
             return $this->render('home/index.html.twig', [
                 'articles' => $articlesRepository->findAll(),
-                
+                'form' => $form->createView(),
             ]);}
         else {
         $email = $this->getUser()->getEmail();
-                
+        
         return $this->render('home/index.html.twig', [
             'articles' => $articlesRepository->findAll(),
             'cats' => $catRepository->findByEmail($email),
-        ]);
+            ]);
+        
     }
     }
     #[Route('/home/lost/{id}', name: 'catlost')]

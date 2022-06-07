@@ -1,35 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %} {{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
+<h1 id="item1">Chats</h1>
+<h1 id="item2">Les dernières actualités...</h1>
 <section class="home">
-    <section id="left">
-		<h1>Les dernières actualités...</h1>
-		<section id="actualité">
-		{% for article in articles %}
-			<article>
-                <div class="article-picture">
-                    {# <img class="article-picture-background" src='/pictures/{{article.picture}}'> #}
-                </div>
-                <h1 class="article-title">{{ article.title }}</h1>
-                <p>{{ article.date|date('Y-m-d H:i') }}</p>
-                <p class="article-text">{{ article.text}}</p>
-			</article>
-			<hr>
-		{% endfor %}
-		</section>
-	</section>
-    <section id="right">
-        <h1>chats</h1>
-        <hr>
+    <section class="signal">
         {% if app.user %}
             <section class="cats">
-               
                 {% for cat in cats %}
                     <div class="card">
+                        <img class="cat-picture" src="/pictures/{{ cat.picture }}">
                         <div class="topcard">
-                            <p>{{ cat.name }}</p>
+                            <p class="cat-name">{{ cat.name }}</p>
+                            <hr>
+                            <p><b>Enregistré le :</b><br><i> 22 janvier 2019</i></p>
+                            <p><b>Prochaine vaccination : </b><br><i>22 mai 2023</i></p>
+                        </div>
                             <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">
                                 {% if cat.islost == false %}
                                     <i class="fa-solid fa-house-chimney"></i>
@@ -37,55 +25,148 @@
                                     <i class="fa-solid fa-magnifying-glass"></i>   
                                 {% endif %}
                             </a>
+                            {% if cat.islost %}
+                            <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-warning localize">Localiser</a>
+                            {% endif %}
                         </div>
-                        <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
-                        {% if cat.islost %}
-                        <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-success localize">Localiser</a>
-                        {% endif %}
                     </div>
                 {% endfor %}   
-                
             </section>
-        {% else %}
-            <a href="{{ path('displaychoice')}}">Signaler un chat</a>
-        {% endif %}
-        <section class="soins">
-            <h1>Les conseils des professionnels</h1>
-            <hr>
-            <div id="buttons">
-                <button class="advice">Les soins dès le plus jeune âge</button>
-                <button class="advice">Le calendrier des vaccinations</button>
-                <button class="advice">Bien choisir son chat persan</button>
-                <button class="advice">Comportements à risque</button>
-            </div>
+            {% else %}
+            <section class="alert">
+                <h4>Signaler un chat</h4>
+                <p>Vous pouvez signaler un chat que vous venez d'apercevoir. Cliquez sur Signaler pour lancer la recherche. Attention, le signalement sera transmis immédiatement au propriétaire du chat.</p>
+                    {{ form_start(form) }}
+                        {{ form_widget(form.coordx) }}
+                        {{ form_widget(form.coordy) }}
+                    <button type="submit" class="btn btn-success">Signaler</button>
+                    {{ form_end(form) }}
+            </section>
+            {% endif %}
+    </section>
+<h1 id="item2">Les dernières actualités...</h1>
+    <section class="actualites">
+        <div class="slider">
+            {% for article in articles %}
+                <article class="article">
+                    <div class="article-picture">
+                    <img class="article-picture-background" src='/pictures/{{article.picture}}'>
+                    </div>
+                    <h2 class="article-title">{{ article.title }}</h2>
+                    <p><i>{{ article.date|date('Y-m-d') }} à {{ article.date|date('H:i') }}</i></p>
+                    <p class="article-text">{{ article.text}}</p>
+                    <p class="seemore">En savoir plus &#x2192</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+<h1 id="item3">Les conseils des professionnels</h1>
+    <section class="home">
+        <h1 id="item3">Les conseils des professionnels</h1>
+        <br>
+        <article class="advice">
+            <img src="/pictures/cross.png">
+            <p class="advice-text">Les soins dès le plus jeune âge</p>
+        </article>
+        <article class="advice">
+            <img src="/pictures/cross.png">
+            <p class="advice-text">Le calendrier des vaccinations</p>
+        </article>
+        <article class="advice">
+            <img src="/pictures/cross.png">
+            <p class="advice-text">Bien choisir son chat persan</p>
+        </article>
+        <article class="advice">
+            <img src="/pictures/cross.png">
+            <p class="advice-text">Comportements à risque</p>
+        </article>
+    </section>
+<h1 id="item4">La gallerie des minous</h1>
+    <section class="gallery">
+        <br>
+        <section class="grid-gallery">
+            <img id="cat1" class="box">
+            <img id="cat2" class="box">
+            <img id="cat4" class="box">
+            <img id="cat5" class="box">
+            <img id="cat6" class="box">
+            <img id="cat7" class="box">
+            <img id="cat8" class="box">
+            <img id="cat9" class="box">
         </section>
-
-    </section>  
+    </section>
 </section>
+<img class="gelatine" onclick="topFunction()" id="arrow-up" src="/pictures/arrow-up.svg">
+<script>
+    let coordx = document.getElementById('search_coordx');
+    let coordy = document.getElementById('search_coordy');
+    // if geolocation is activated, init function getPosition to catch current position
+    function showPosition(position)
+    {
+        // variables initiated to store positions
+        let xposition = position.coords.longitude;
+        let yposition = position.coords.latitude;
+        // update input value to display coords
+        coordx.value = xposition;
+        coordy.value = yposition;
+    };
+    if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    else
+        {
+            x.innerHTML="Geolocation n’est pas prise en charge par ce navigateur.";
+        }
+    
+</script>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        function changeStatus(event) {
+<script>
+        function changeStatus(event) 
+        {
             event.preventDefault();
             const url = this.href;
             const icone = this.querySelector('i');
-            console.log(icone);
             axios.get(url).then(function(response){
-                
                 if(icone.classList.contains('fa-magnifying-glass')) {
-                    
                     icone.classList.replace('fa-magnifying-glass','fa-house-chimney');
                 } else { 
-                    
                     icone.classList.replace('fa-house-chimney', 'fa-magnifying-glass');
-        }})
-            };
+                }
+            })
+        };
         
-        document.querySelectorAll('a.js-lost').forEach(function(lost){
-            lost.addEventListener('click', changeStatus);
+        document.querySelectorAll('a.js-lost').forEach(function(lost)
+        {
+            lost.addEventListener('click', changeStatus());
         });
         
 </script>
+
+{# SCRIPT POUR FLECHE AU SCROLL DOWN #}
+<script>
+//Get the button:
+mybutton = document.getElementById("arrow-up");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 {% endblock %}
 
