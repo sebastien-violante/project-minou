@@ -3,9 +3,9 @@
 {% block title %} {{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-<h1 id="item1">Chats</h1>
-<h1 id="item2">Les dernières actualités...</h1>
+
 <section class="home">
+<h1 id="item1">Chats</h1>
     <section class="signal">
         {% if app.user %}
             <section class="cats">
@@ -62,7 +62,6 @@
     </section>
 <h1 id="item3">Les conseils des professionnels</h1>
     <section class="home">
-        <h1 id="item3">Les conseils des professionnels</h1>
         <br>
         <article class="advice">
             <img src="/pictures/cross.png">

@@ -9,12 +9,15 @@
 </style>
 
 <div class="displaylost">
+
     <h2>liste des chats perdus sur la commune de {{ place }} </h2>
     <article class="responsive">
+    
     {% for cat in cats %}
         <div class="card">
             <div class="topcard">
                 <p>{{ cat.name }}</p>
+                 
                 <p>Déclaré perdu :<br>{{ cat.datelost ? cat.datelost|date('Y-m-d H:i:s') : '' }}</p>
                 
             </div>
@@ -24,6 +27,7 @@
             <a href="{{ path("report", {"cat_id": cat.id }) }}" class="btn btn-warning">Signaler</a>
         </div>
     {% endfor %}
+  
     </article>   
 </div>
 

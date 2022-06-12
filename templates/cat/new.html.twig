@@ -45,15 +45,15 @@
                             <p>bleus</p>
                         </div>
                         <div class="type">
-                            <img src="/pictures/brown-cat-eye.svg"class="blurb" id="R"></img>
+                            <img src="/pictures/brown-cat-eye.svg"class="blurb" id="M"></img>
                             <p>marrons</p>
                         </div>
                         <div class="type">   
-                            <img src="/pictures/yellow-cat-eye.svg"class="blurb" id="Y"></img>
+                            <img src="/pictures/yellow-cat-eye.svg"class="blurb" id="J"></img>
                             <p>jaunes</p>
                         </div>
                         <div class="type">
-                            <img src="/pictures/green-cat-eye.svg"class="blurb" id="G"></img>
+                            <img src="/pictures/green-cat-eye.svg"class="blurb" id="V"></img>
                             <p>verts</p>
                         </div>    
                     </div>
@@ -67,7 +67,7 @@
                             <p>uni</p>
                         </div>
                         <div class="type">
-                            <img src="/pictures/rayure.png" class="blurb logo" id="B"></img>
+                            <img src="/pictures/rayure.png" class="blurb logo" id="R"></img>
                             <p>rayé</p>
                         </div>
                         <div class="type">
@@ -80,11 +80,26 @@
                 <div id="color">
                     <p class = 'form-label'>Couleur du pelage :</p>
                     <div id="colors" style="display: flex; gap: 1rem; justify-content: space-envely">
-                        <div class="blurb simple-color" id="W" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #fff"></div>
-                        <div class="blurb simple-color" id="K" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #000"></div>
-                        <div class="blurb simple-color" id="N" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #973b0ad8"></div>
-                        <div class="blurb simple-color" id="Y" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #a5a6a3"></div>
-                        <div class="blurb simple-color" id="G" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #df6406"></div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="W" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #fff"></div>
+                            <p>Blanc</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="K" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #000"></div>
+                            <p>Noir</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="N" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #973b0ad8"></div>
+                            <p>Marron</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="G" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #a5a6a3"></div>
+                            <p>Gris</p>
+                        </div>
+                         <div class="type">
+                            <div class="blurb simple-color" id="X" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #df6406"></div>
+                            <p>Roux</p>
+                        </div>
                     </div>
                 </div>
             
@@ -108,21 +123,21 @@
     let colorResult = [];
     let blurbs = document.getElementsByClassName('blurb');
     for(let blurb of blurbs) {
-        blurb.style.filter = "opacity(50%)";
+        blurb.style.filter = "opacity(20%)";
     }
     for(let blurb of blurbs) {
         blurb.addEventListener('click', (e) => {
-        if(e.currentTarget.style.filter  == "" || e.currentTarget.style.filter == "opacity(50%)") {
-            e.currentTarget.style.filter = "opacity(100%)";
-        } else {
-            e.currentTarget.style.filter = "opacity(50%)";
-        }; 
-        // if need is selected, store it. Else, remove it
-        if(colorResult.includes(e.currentTarget.id)) {
-            colorResult = colorResult.filter(code => code !== e.currentTarget.id);
-        } else {
-            colorResult.push(e.currentTarget.id);
-        };
+            if( e.currentTarget.style.filter == "opacity(20%)") {
+                e.currentTarget.style.filter = "opacity(100%)";
+            } else {
+                e.currentTarget.style.filter = "opacity(20%)";
+            }; 
+            // if need is selected, store it. Else, remove it
+            if(colorResult.includes(e.currentTarget.id)) {
+                colorResult = colorResult.filter(code => code !== e.currentTarget.id);
+            } else {
+                colorResult.push(e.currentTarget.id);
+            };
         let finalcolor = colorResult.join('');
         document.getElementById('cat_colorstyle').value = finalcolor;
         console.log(document.getElementById('cat_colorstyle').value);
