@@ -3,7 +3,9 @@
 {% block title %} {{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-
+<pre>
+    {{ dump(app.user) }}
+</pre>
 <section class="home">
 <h1 id="item1">Chats</h1>
     <section class="signal">
