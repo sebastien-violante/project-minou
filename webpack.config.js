@@ -27,6 +27,11 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('gallery', './assets/scripts/gallery.js')
+    .addEntry('geoloc', './assets/scripts/geoloc.js')
+    .addEntry('scroll-arrow', './assets/scripts/scroll-arrow.js')
+    .addEntry('advice-arrow', './assets/scripts/advice-arrow.js')
+    .addEntry('status-change', './assets/scripts/status-change.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

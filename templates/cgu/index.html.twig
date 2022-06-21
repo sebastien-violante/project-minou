@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - CGU{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<main class = 'cgu'>
+    <h1>MIN...OU ?</h1>
+    <h2>Conditions générales d'utilisation du site</h2>
+
+    <h3>Description du site</h3>
+    <p>Le site Minou est développé pour permettre à n'importe qui de signaler la localisation d'un chat perdu à son propriétaire</p>
+    <p>Il propose à celui qui veut signaler un chat</p>
+    <ul>
+        <li>d'accéder directement à la liste des chats déclarés perdus là où il se trouve</li>
+        <li>de signaler un chat par un simple clic. Les coordonnées du signalement sont enregistrées et le propriétaire est instantanément averti par courriel</li>
+    </ul>
+    <p>Il permet à celui qui possède un chat</p>
+    <ul>
+        <li>d'enregistrer son chat et de le déclarer perdu</li>
+        <li>d'accéder à ses différentes localisation signalées</li>
+    </ul>
+    <h3>Droits et obligations des utilisateurs</h3>
+    <p>Les utilisateurs du site, qu'ils s'authentifien ou non, doivent l'utiliser conformément à sa destination. En ce qui concerne les lanceurs d'alerte (nom donné aux utilisateurs qui signalent un chat), tout signalement volontairement erroné est proscrit</p>
+    <h3>Droits et obligations de l'éditeur</h3>
+    <p>L'éditeur du site s'engage à en assurer la disponibilité technique. Il n'est cependant pas responsable de l'indisponibilité des fournisseurs d'accès au réseau ou de l'hébergeur du site. Dans la mesure du possible, l'administrateur du site préviendra chaque propriétaire de la période d'indisponibilité prévue pour dépannage ou maintenance</p>
+
+</main>
+{% endblock %}
