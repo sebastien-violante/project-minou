@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'home')]
+    #[Route('/', name: 'home')]
         public function index(
             ArticleRepository $articlesRepository,
             CatRepository $catRepository,

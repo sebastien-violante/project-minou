@@ -17,31 +17,36 @@
 <h2 id="item1">Chats</h2>
     <section class="signal">
         {% if app.user %}
-            <section class="cats">
-                {% for cat in cats %}
-                    <div class="card">
-                        <img class="cat-picture" src="/pictures/{{ cat.picture }}">
-                        <div class="topcard">
-                            <p class="cat-name">{{ cat.name }}</p>
-                            <hr>
-                            <p><b>Enregistré le :</b><br><i> 22 janvier 2019</i></p>
-                            <p><b>Prochaine vaccination : </b><br><i>22 mai 2023</i></p>
-                        </div>
-                            <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">
-                                {% if cat.islost == false %}
-                                    <i class="fa-solid fa-house-chimney"></i>
-                                {% else %} 
-                                    <i class="fa-solid fa-magnifying-glass"></i>   
-                                {% endif %}
-                            </a>
-                            {% if cat.islost %}
-                            <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-warning localize">Localiser</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}   
-            </section>
+            {% if cats is empty %}
+                <p>Vous n'avez pas encore enregistré de chat.</p>
+                <p>Rendez-vous dans la barre de menus, onglet "Cahts" puis "Nouveau" pour le faire.</p>
             {% else %}
+                <section class="cats">
+                    {% for cat in cats %}
+                        <div class="card">
+                            <img class="cat-picture" src="/pictures/{{ cat.picture }}">
+                            <div class="topcard">
+                                <p class="cat-name">{{ cat.name }}</p>
+                                <hr>
+                                <p><b>Enregistré le :</b><br><i> 22 janvier 2019</i></p>
+                                <p><b>Prochaine vaccination : </b><br><i>22 mai 2023</i></p>
+                            </div>
+                                <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">
+                                    {% if cat.islost == false %}
+                                        <i class="fa-solid fa-house-chimney"></i>
+                                    {% else %} 
+                                        <i class="fa-solid fa-magnifying-glass"></i>   
+                                    {% endif %}
+                                </a>
+                                {% if cat.islost %}
+                                <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-warning localize">Localiser</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}   
+                </section>
+            {% endif %}
+        {% else %}
             <section class="alert">
                 <h4>Signaler un chat</h4>
                 <p>Vous pouvez signaler un chat que vous venez d'apercevoir. Cliquez sur Signaler pour lancer la recherche. Attention, le signalement sera transmis immédiatement au propriétaire du chat.</p>
@@ -51,7 +56,7 @@
                     <button type="submit" class="btn btn-success">Signaler</button>
                     {{ form_end(form) }}
             </section>
-            {% endif %}
+        {% endif %}
     </section>
 <h2 id="item2">Les dernières actualités...</h2>
     <section class="actualites">

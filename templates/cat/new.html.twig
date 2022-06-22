@@ -4,8 +4,15 @@
 
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
-    <script src="/build/places.js"></script>
-    <script src="/colorstyle.js"></script>
+    {{ encore_entry_script_tags('color-result') }}
+
+
+
+
+
+
+
+
 {% endblock %}
 
 {% block body %}
@@ -37,6 +44,11 @@
                 {{ form_widget(form.place, {'attr': {'class': 'form-control'}}) }}
                 </p>
                 
+                <input name="cp" id="cp" type="hidden" placeholder="CP">
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
                 <div id="eyes">
                     <p class ='form-label'>Couleur des yeux :</p>
                     <div id="eyescolors" style="display: flex; gap: 1rem; justify-content: space-envely">
@@ -96,7 +108,7 @@
                             <div class="blurb simple-color" id="G" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #a5a6a3"></div>
                             <p>Gris</p>
                         </div>
-                         <div class="type">
+                        <div class="type">
                             <div class="blurb simple-color" id="X" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #df6406"></div>
                             <p>Roux</p>
                         </div>
@@ -117,39 +129,73 @@
     </section>
 </div>
     <br>
-   
-
-<script>
-    let colorResult = [];
-    let blurbs = document.getElementsByClassName('blurb');
-    for(let blurb of blurbs) {
-        blurb.style.filter = "opacity(20%)";
-    }
-    for(let blurb of blurbs) {
-        blurb.addEventListener('click', (e) => {
-            if( e.currentTarget.style.filter == "opacity(20%)") {
-                e.currentTarget.style.filter = "opacity(100%)";
-            } else {
-                e.currentTarget.style.filter = "opacity(20%)";
-            }; 
-            // if need is selected, store it. Else, remove it
-            if(colorResult.includes(e.currentTarget.id)) {
-                colorResult = colorResult.filter(code => code !== e.currentTarget.id);
-            } else {
-                colorResult.push(e.currentTarget.id);
-            };
-        let finalcolor = colorResult.join('');
-        document.getElementById('cat_colorstyle').value = finalcolor;
-        console.log(document.getElementById('cat_colorstyle').value);
-    })
-    };
-    </script>
 
 </div>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJaDs8GhvKgIfGrMyp4D924YCoTryGgn0&libraries=places"></script>
+{#     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> #}
+  {#   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> #}
+{#     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> #}
+   {#  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> #}
 
 
+<script>
+$("#cp").autocomplete({
+	source: function (request, response) {
+		$.ajax({
+			url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='cp']").val(),
+			data: { q: request.term },
+			dataType: "json",
+			success: function (data) {
+				var postcodes = [];
+				response($.map(data.features, function (item) {
+					// Ici on est obligé d'ajouter les CP dans un array pour ne pas avoir plusieurs fois le même
+					if ($.inArray(item.properties.postcode, postcodes) == -1) {
+						postcodes.push(item.properties.postcode);
+						return { label: item.properties.postcode + " - " + item.properties.city, 
+							city: item.properties.city,
+							value: item.properties.postcode
+						};
+					}
+				}));
+			}
+		});
+	},
+	// On remplit aussi la ville
+	select: function(event, ui) {
+		$('#ville').val(ui.item.city);
+	}
+});
+$("#cat_place").autocomplete({
+	source: function (request, response) {
+		$.ajax({
+			url: "https://api-adresse.data.gouv.fr/search/?city="+$("input[name='cat[place]']").val(),
+			data: { q: request.term },
+			dataType: "json",
+			success: function (data) {
+				var cities = [];
+				response($.map(data.features, function (item) {
+					// Ici on est obligé d'ajouter les villes dans un array pour ne pas avoir plusieurs fois la même
+					if ($.inArray(item.properties.postcode, cities) == -1) {
+						cities.push(item.properties.postcode);
+						return { label: item.properties.postcode + " - " + item.properties.city, 
+							postcode: item.properties.postcode,
+							value: item.properties.city
+						};
+					}
+				}));
+			}
+		});
+	},
+	// On remplit aussi le CP
+	select: function(event, ui) {
+		$('#cp').val(ui.item.postcode);
+	}
+});
+
+</script>
 {% endblock %}
 
 

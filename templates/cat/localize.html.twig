@@ -11,39 +11,34 @@
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 
 
-<div class="displaylost">
-    <h3>Localisation de XXX </h3>
+<div class="localize">
+    <h4>Historique des localisations</h4>
     <p>Votre chat <strong>{{ cat.name}}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
-    <br>
     <p>Synthèse à la date du :{{ date|date('d-m-Y')  }}</p>
-       
-
-
-<table>
-  <tr>
-    <td>Date</td>
-    <td>Latitude</td>
-    <td>Logitude</td>
-    <td>Etat de santé</td>
-    <td>Message du lanceur d'alerte</td>
-  </tr>
-  {% for report in reports %}
-  <tr>
-    <td>{{  report.date|date('d-m-Y H : i') }}</td>
-    <td>{{  report.coordx }}</td>
-    <td>{{  report.coordy }}</td>
-    <td>{{  report.status }}</td>
-    <td>{{  report.message }}</td>
-  </tr>
-   {% endfor %}
-</table>
-
-{# to catch the cat number and use it to complete the ajax url path #}
-<div class="js-cat-number" data-is-authenticated="{{ cat.id }}"></div>
-
-
-{# to dysplays points of interest #}
-<div id='map' style='width: 800px; height: 800px;'></div>
+    <div class="array">
+        <table>
+          <tr>
+            <td id="date">Date</td>
+            <td>Latitude</td>
+            <td>Logitude</td>
+            <td>Etat de santé</td>
+            <td>Message du lanceur d'alerte</td>
+          </tr>
+          {% for report in reports %}
+          <tr>
+            <td>{{  report.date|date('d-m-Y H : i') }}</td>
+            <td>{{  report.coordx }}</td>
+            <td>{{  report.coordy }}</td>
+            <td>{{  report.status }}</td>
+            <td>{{  report.message }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+    </div>
+    {# to catch the cat number and use it to complete the ajax url path #}
+    <div class="js-cat-number" data-is-authenticated="{{ cat.id }}"></div>
+    {# to dysplays points of interest #}
+    <div id='map' style='width: 800px; height: 800px;'></div>
 
 
 {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

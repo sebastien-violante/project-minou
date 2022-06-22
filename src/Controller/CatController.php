@@ -44,6 +44,7 @@ class CatController extends AbstractController
             $em= $doctrine->getManager();
             $cat->setEmail($mail);
             $cat->setIslost(false);
+            
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $cat instanceof Cat) {
                 $newFilename = 'cat' . '-' . $cat->getName() . '.' . $picture->guessExtension();
@@ -60,6 +61,15 @@ class CatController extends AbstractController
                 $cat->setPicture($newFilename);
                 
             }
+            //traitement de la donnée ville
+            $place = $form->get('place')->getData();
+            ////suppression des espaces
+            $place = preg_replace("/\s+/", "", $place);
+            ////Forçage de la première lettre en majuscule
+            $place = ucfirst($place);
+            //-----------------------------//
+            $cat->setPlace($place);
+         
             $em->persist($cat);
             $em->flush();
             return $this->redirectToRoute('home');

@@ -45,6 +45,9 @@ class Cat
     #[ORM\OneToMany(mappedBy: 'cat', targetEntity: Report::class)]
     private $reports;
 
+    #[ORM\ManyToOne(targetEntity: Breed::class, inversedBy: 'cats')]
+    private $breed;
+
     public function __construct()
     {
         $this->reports = new ArrayCollection();
@@ -196,5 +199,17 @@ class Cat
     public function __toString()
     {
         return $this->getId();
+    }
+
+    public function getBreed(): ?Breed
+    {
+        return $this->breed;
+    }
+
+    public function setBreed(?Breed $breed): self
+    {
+        $this->breed = $breed;
+
+        return $this;
     }
 }

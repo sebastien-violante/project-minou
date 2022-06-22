@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Cat;
 use App\Entity\Breed;
+use App\Repository\BreedRepository;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +23,8 @@ class CatType extends AbstractType
             ->add('name')
             ->add('race', EntityType::class, [
                 'class' => Breed::class,
-                'multiple' => true,
+                'choice_label' => 'name', 
+                'multiple' => false,
                 'expanded' => false,
                 'required' => true,])
             ->add('picture', FileType::class, [
@@ -37,7 +39,10 @@ class CatType extends AbstractType
                 ],
             ])
             ->add('details')
-            ->add('place')
+            ->add('place', null, [
+                'required' => true,
+            
+            ])
             ->add('colorstyle', HiddenType::class)
         ;
     }

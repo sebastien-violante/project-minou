@@ -1,0 +1,14 @@
+.localize {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    #date {
+       border:1px solid red;
+    }
+}
+
+.array {
+    max-width: 800px;
+    border: 1px solid greenyellow;
+}

@@ -27,7 +27,7 @@
         <input type="password" class="form-control" id="password" name="_password"/>
     </div>
         {# on succes, redirect user to home page #}
-        <input type="hidden" name="_target_path" value="/home"/>
+        <input type="hidden" name="_target_path" value="/"/>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <button type="submit" class="btn btn-success">Connexion</button>
     </form>
