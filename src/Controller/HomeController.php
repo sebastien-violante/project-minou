@@ -37,9 +37,9 @@ class HomeController extends AbstractController
                     $place = null;
                 }
                 return $this->render('cat/displaylost.html.twig',[
-                    'cats' => $catRepository->findByPlace($place),
+                    'cats' => $catRepository->findBy(['place' => $place, 'islost' => 'true']),
                     'place' => $place,
-                    ]);;
+                    ]);
             }
         //////////////////////////////////////////////////////////////////////////////
             return $this->render('home/index.html.twig', [

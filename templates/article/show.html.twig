@@ -3,7 +3,8 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+<section class="article-crud">
+    <h3 class=".crud-theme-title">Détail de l'article</h3>
 
     <table class="table">
         <tbody>
@@ -39,4 +40,5 @@
     <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 
     {{ include('article/_delete_form.html.twig') }}
+</section>
 {% endblock %}

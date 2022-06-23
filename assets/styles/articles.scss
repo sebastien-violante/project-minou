@@ -1,4 +1,6 @@
 .article-crud {
+    padding: 0 2rem;
+
     .article-picture-crud {
         height: 100px;
         width: 100px;
@@ -6,5 +8,14 @@
 
     #article-title {
         font-weight: bold;
+    }
+
+    .crud-theme-title {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+    }
+
+    .crud-link {
+        margin: 1rem 4rem;
     }
 }

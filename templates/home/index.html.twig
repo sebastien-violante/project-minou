@@ -67,7 +67,7 @@
                     <img class="article-picture-background" src='/pictures/{{article.picture}}'>
                     </div>
                     <h2 class="article-title">{{ article.title }}</h2>
-                    <p><i>{{ article.date|date('Y-m-d') }} à {{ article.date|date('H:i') }}</i></p>
+                    <p>rédigé le : <i>{{ article.date|date('Y-m-d') }} à {{ article.date|date('H:i') }}</i></p>
                     <p class="article-text">{{ article.text}}</p>
                     <p class="seemore">En savoir plus &#x2192</p>
                 </article>

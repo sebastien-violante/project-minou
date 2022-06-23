@@ -15,7 +15,7 @@ class ArticleType extends AbstractType
     {
         $builder
         ->add('picture', FileType::class, [
-            'label' => 'Image de profil',
+            'label' => 'Illustration',
             'mapped' => false,
             'required' => false,
             'constraints' => [

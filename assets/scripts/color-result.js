@@ -19,6 +19,7 @@ for(let blurb of blurbs) {
             colorResult = colorResult.filter(code => code !== e.currentTarget.id);
         } else {
             if(eyesColor.includes(e.currentTarget.id)) {
+                // avoid multi choices of eye colors
                 const otherEyesColor = eyesColor.filter(element => element !== e.currentTarget.id);
                 otherEyesColor.forEach(element =>  {
                     document.getElementById(element).style.filter = "opacity(20%)";
@@ -26,6 +27,7 @@ for(let blurb of blurbs) {
                 });
             }
             if(bodyType.includes(e.currentTarget.id)) {
+                // avoid multi choices of body types
                 const otherBodyType = bodyType.filter(element => element !== e.currentTarget.id);
                 otherBodyType.forEach(element =>  {
                     document.getElementById(element).style.filter = "opacity(20%)";

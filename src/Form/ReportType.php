@@ -24,7 +24,7 @@ class ReportType extends AbstractType
             ->add('message', TextareaType::class)
             ->add('status', EntityType::class, [
                 'class' => Status::class,
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => false,
                 'required' => true,])
             

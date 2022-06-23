@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let xPositions = [];
         let yPositions = [];
         let zoomLevel = 10;
-        resp.forEach(function(y){
+        resp.forEach(function(pos){
             yPositions.push(parseFloat(y.coordy));
             xPositions.push(parseFloat(y.coordx));
         });
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [yCenter, xCenter], // starting position [lng, lat]
+        center: [xCenter, yCenter], // starting position [lng, lat]
         zoom: zoomLevel // starting zoom
         })
         

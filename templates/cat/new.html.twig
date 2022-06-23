@@ -5,14 +5,8 @@
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
     {{ encore_entry_script_tags('color-result') }}
-
-
-
-
-
-
-
-
+    {{ encore_entry_script_tags('jqueryui') }}
+    {{ encore_entry_script_tags('jqueryuimin') }}
 {% endblock %}
 
 {% block body %}
@@ -114,7 +108,10 @@
                         </div>
                     </div>
                 </div>
-            
+                <p>
+                    {{ form_label(form.vaccination, 'Prochaine vaccination :', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.vaccination, {'attr': {'class': 'form-control'}}) }}
+                </p>
                 <p>
                     {{ form_label(form.details, 'signes distinctifs :', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(form.details, {'attr': {'class': 'form-control'}}) }}

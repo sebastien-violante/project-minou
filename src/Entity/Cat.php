@@ -45,8 +45,8 @@ class Cat
     #[ORM\OneToMany(mappedBy: 'cat', targetEntity: Report::class)]
     private $reports;
 
-    #[ORM\ManyToOne(targetEntity: Breed::class, inversedBy: 'cats')]
-    private $breed;
+    #[ORM\Column(type: 'date', nullable: true)]
+    private $vaccination;
 
     public function __construct()
     {
@@ -201,14 +201,14 @@ class Cat
         return $this->getId();
     }
 
-    public function getBreed(): ?Breed
+    public function getVaccination(): ?\DateTimeInterface
     {
-        return $this->breed;
+        return $this->vaccination;
     }
 
-    public function setBreed(?Breed $breed): self
+    public function setVaccination(?\DateTimeInterface $vaccination): self
     {
-        $this->breed = $breed;
+        $this->vaccination = $vaccination;
 
         return $this;
     }

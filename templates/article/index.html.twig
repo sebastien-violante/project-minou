@@ -3,8 +3,8 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <section class="article-crud">
-    <h1>Les articles édités</h1>
+<section class="article-crud">
+    <h3 class="crud-theme-title">Les articles édités</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -37,5 +37,5 @@
             </tbody>
         </table>
     </section>
-    <a href="{{ path('app_article_new') }}">Créer un nouvel article</a>
+    <a href="{{ path('app_article_new') }}" class="btn btn-success crud-link">Créer un nouvel article</a>
 {% endblock %}

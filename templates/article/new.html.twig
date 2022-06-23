@@ -3,9 +3,11 @@
 {% block title %}New Article{% endblock %}
 
 {% block body %}
-    <h1>Create new Article</h1>
+<section class="article-crud">
+    <h3 class="crud-theme-title">Ecrivez un nouvel article</h3>
 
     {{ include('article/_form.html.twig') }}
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+    <a href="{{ path('app_article_index') }}" class="btn btn-success crud-link">Retour à la liste</a>
+</section>
 {% endblock %}

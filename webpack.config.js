@@ -35,7 +35,6 @@ Encore
     .addEntry('autocompletion', './assets/scripts/autocompletion.js')
     .addEntry('color-result', './assets/scripts/color-result.js')
 
-
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

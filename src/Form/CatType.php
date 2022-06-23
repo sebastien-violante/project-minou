@@ -39,6 +39,7 @@ class CatType extends AbstractType
                 ],
             ])
             ->add('details')
+            ->add('vaccination')
             ->add('place', null, [
                 'required' => true,
             
