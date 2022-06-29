@@ -49,7 +49,7 @@ header {
    /*  padding-bottom: 0.5rem; */
 }
 
-.navi-collaspe { background-color:#ffffff; }
+.navi-collaspe { background-color:#ffffff;}
 
 header > a, header button {
     color: white;
@@ -82,6 +82,7 @@ header .dropdown:hover .content {
     display:flex;
     flex-direction: column;
     position: absolute;
+    color: ivory;
     background-color: rgba(65, 61, 61, 0.8);
     top: 3rem;
     width: 120%;
@@ -111,10 +112,10 @@ header .icon {
     header.responsive > a,
     header.responsive .dropdown {
         display: block;
-        padding: 0.5em 0;
+        padding: 0.5em 2rem;
         width: 100%;
-        text-align: left;
-        background-color: red;
+        text-align: center;
+        background-color: rgba(65, 61, 61, 0.8);
     }
 
     header.responsive > a {
@@ -136,6 +137,5 @@ header .icon {
         position: relative;
         width: 100%;
         top: 0;
-
     }
 }

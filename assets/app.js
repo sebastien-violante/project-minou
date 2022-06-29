@@ -1,4 +1,5 @@
 import './styles/app.scss';
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 

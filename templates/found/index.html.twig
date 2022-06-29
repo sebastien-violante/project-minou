@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Détails chats{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h5 class="top-title">Tant mieux...</h5>
+    <p>Nous sommes heureux que vous ayez retrouvé {{ cat.name }}.<p>
+    <p>Vous pouvez choisir d'archiver les signalements faits par les "Cat Patrouilles" ou bien de les supprimer définitivement.</p>
+    <a class="btn btn-primary" href="{{ path('storereports',{id: cat.id})}}">Archiver les signalements</a>
+    <a class="btn btn-danger" href="{{ path('deletereports', {id: cat.id})}}">Supprimer les signalements</a>
+</div>
+{% endblock %}

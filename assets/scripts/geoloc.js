@@ -9,6 +9,8 @@ function showPosition(position)
     // update input value to display coords
     coordx.value = xposition;
     coordy.value = yposition;
+    console.log(xposition);
+    console.log(yposition);
 };
 if (navigator.geolocation)
     {
@@ -16,6 +18,6 @@ if (navigator.geolocation)
     }
 else
     {
-        x.innerHTML="Geolocation n’est pas prise en charge par ce navigateur.";
+        x.innerHTML="La géolocation n’est pas prise en charge par ce navigateur.";
     }
     

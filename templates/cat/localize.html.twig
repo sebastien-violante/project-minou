@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatController!{% endblock %}
+{% block title %} {{ parent() }} - Synthèse signalements{% endblock %}
 
 {% block body %}
 <style>
@@ -10,65 +10,59 @@
 </style>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 
-
-<div class="localize">
-    <h4>Historique des localisations</h4>
-    <p>Votre chat <strong>{{ cat.name}}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
-    <p>Synthèse à la date du :{{ date|date('d-m-Y')  }}</p>
-    <div class="array">
-        <table>
-          <tr>
-            <td id="date">Date</td>
-            <td>Latitude</td>
-            <td>Logitude</td>
-            <td>Etat de santé</td>
-            <td>Message du lanceur d'alerte</td>
-          </tr>
-          {% for report in reports %}
-          <tr>
-            <td>{{  report.date|date('d-m-Y H : i') }}</td>
-            <td>{{  report.coordx }}</td>
-            <td>{{  report.coordy }}</td>
-            <td>{{  report.status }}</td>
-            <td>{{  report.message }}</td>
-          </tr>
-          {% endfor %}
-        </table>
+<h4 class="top-title">Historique des localisations</h4>
+<h5 class="top-sub-title">Synthèse à la date du : {{ date|date('d-m-Y')  }}</h5>
+<hr>
+{% if reports is empty %}
+    <div class="center">
+        <div id="no-signal-container">
+            <p>Votre chat {{cat.name}} n'a pas encore été signalé. Patience, une 'Cat Patrouille' va peut-être bientôt le repérer...</p>
+            <img id="no-signal-picture" src="{{ asset("build/pictures/cat-no-signal.jpg") }}"/>
+        </div>
+    </div>
+{% else %}
+    <div class="report-display">
+        <p>Votre chat <strong>{{ cat.name }}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
+        {% for report in reports %}
+            <div class="report-card">
+              <p class="report-title">Repérage à la date du : {{ report.date|date('d-m-Y H : i') }}</p>
+              <p>Coordonnées : Long : {{  report.coordx }} / Lat : {{  report.coordy }}</p>
+              <p>Etat de santé : {{  report.status }}</p>
+              <P>Message du lanceur d'alerte : {{  report.message }}</p>
+            </div>
+        {% endfor %}
     </div>
     {# to catch the cat number and use it to complete the ajax url path #}
     <div class="js-cat-number" data-is-authenticated="{{ cat.id }}"></div>
     {# to dysplays points of interest #}
     <div id='map' style='width: 800px; height: 800px;'></div>
-
-
-{# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
- #}
+{% endif %} 
 
 {# to retrieve reports in json format from the database #}
 <script>
 //current date modified to compare it with report dates
 let currentDate = Date.parse(new Date());
-
 {# following...to catch the cat number and use it to complete the ajax url path #}
 document.addEventListener('DOMContentLoaded', function() {
     var cat = document.querySelector('.js-cat-number');
     var number = cat.dataset.isAuthenticated;
-    
     fetch(`/api/post/${number}`)
     .then((resp) => resp.json())
     .then(function(resp){
-        
         let xPositions = [];
         let yPositions = [];
         let zoomLevel = 10;
-        resp.forEach(function(pos){
+        resp.forEach(function(y){
             yPositions.push(parseFloat(y.coordy));
             xPositions.push(parseFloat(y.coordx));
         });
+        console.log('longitudes :' + xPositions);
+        console.log('latitudes :' + yPositions);
         xCenter = xPositions[xPositions.length - 1];
         yCenter = yPositions[yPositions.length - 1];
-        console.log(xCenter);
-        console.log(yCenter);
+        console.log('longitude centrage :' + xCenter);
+        console.log('latitude centrage :' + yCenter);
+        
         // détermination des écarts max en latitude et longitude
         console.log(xPositions);
         var xmin = Math.min(...xPositions);
@@ -78,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // détermination des écarts max en distance
         xdelta = (xmax-xmin)*111;
         ydelta = (ymax-ymin)*78.5;
+        console.log('delta longitudes :' + xdelta);
+        console.log('delta longitudes :' + xdelta);
         // détermination du zoom adéquat
         if(xdelta < 46.84 && ydelta < 46.84) {
           zoomLevel = 11;
@@ -94,17 +90,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if(xdelta < 2.92 && ydelta < 2.92){
           zoomLevel = 15;
         }
-        console.log(zoomLevel);       
-     
-
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbGliazJpMDBncDNjcGpjcmQyOXcxZSJ9.1kWjyl5N_8jbXnAE9Y2Jnw';
+        console.log(zoomLevel);   
+        
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbG4wNWg5MGZ0bzNrbThwNzh0ZXFhOCJ9.8M0DRywrHjBdZdQsMOfciQ';
         const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [xCenter, yCenter], // starting position [lng, lat]
         zoom: zoomLevel // starting zoom
         })
-        
+       
         resp.forEach(function(y){
             let delay =((currentDate - Date.parse(y.date))/3600000);
             let markerColor = 'red';
@@ -112,14 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
               markerColor = 'blue';
             }
             if(delay < 24) {
-               markerColor = 'green';
+              markerColor = 'green';
             }
             console.log(markerColor)
             // Create a default Marker, colored black, rotated 45 degrees.
             const marker = new mapboxgl.Marker({
               color: markerColor,
               rotation: 45 })
-            .setLngLat([y.coordy, y.coordx])
+            .setLngLat([y.coordx, y.coordy])
             .setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                 .setHTML(

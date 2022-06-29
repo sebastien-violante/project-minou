@@ -14,7 +14,7 @@ class Article
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $picture = 'default-article-picture';
+    private $picture;
 
     #[ORM\Column(type: 'text')]
     private $text;

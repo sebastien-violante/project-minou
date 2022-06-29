@@ -7,6 +7,7 @@
     {{ encore_entry_script_tags('scroll-arrow') }}
     {{ encore_entry_script_tags('advice-arrow') }}
     {{ encore_entry_script_tags('status-change') }}
+    {{ encore_entry_script_tags('deploy') }}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {% endblock %}
 
@@ -18,8 +19,8 @@
     <section class="signal">
         {% if app.user %}
             {% if cats is empty %}
-                <p>Vous n'avez pas encore enregistré de chat.</p>
-                <p>Rendez-vous dans la barre de menus, onglet "Cahts" puis "Nouveau" pour le faire.</p>
+                <p class="info">Vous n'avez pas encore enregistré de chat.</p>
+                <p class="info">Rendez-vous dans la barre de menus, onglet "Chats" puis "Nouveau" pour le faire.</p>
             {% else %}
                 <section class="cats">
                     {% for cat in cats %}
@@ -28,33 +29,29 @@
                             <div class="topcard">
                                 <p class="cat-name">{{ cat.name }}</p>
                                 <hr>
-                                <p><b>Enregistré le :</b><br><i> 22 janvier 2019</i></p>
-                                <p><b>Prochaine vaccination : </b><br><i>22 mai 2023</i></p>
-                            </div>
-                                <a id="isLost" class="js-lost" href="{{ path('catlost', {id: cat.id})}}">
-                                    {% if cat.islost == false %}
-                                        <i class="fa-solid fa-house-chimney"></i>
-                                    {% else %} 
-                                        <i class="fa-solid fa-magnifying-glass"></i>   
-                                    {% endif %}
-                                </a>
-                                {% if cat.islost %}
-                                <a href="{{ path('displayreport', {id: cat.id})}}"  class="btn btn-warning localize">Localiser</a>
-                                {% endif %}
-                            </div>
+                                <p><b>Enregistré le :</b><br> 22 janvier 2019</p>
+                                <p><b>Prochaine vaccination : </b><br>22 mai 2023</p>
+                            <a class="changeStatus" href="{{ path('catlost', {id: cat.id})}}">
+                                <i id="icone" class="bi {{ cat.islost ? 'bi-binoculars-fill' : 'bi-house' }}"></i>
+                            </a>
+                            </div>    
                         </div>
-                    {% endfor %}   
+                    {% endfor %}  
                 </section>
             {% endif %}
         {% else %}
             <section class="alert">
                 <h4>Signaler un chat</h4>
-                <p>Vous pouvez signaler un chat que vous venez d'apercevoir. Cliquez sur Signaler pour lancer la recherche. Attention, le signalement sera transmis immédiatement au propriétaire du chat.</p>
+                <p>Vous souhaitez signaler un chat que vous venez d'apercevoir ?  Vous avez le choix de lancer une recherche automatique ou bien de saisir la commune dans laquelle vous voulez lancer la recherche.</p>
+                <p> Attention, le signalement sera transmis immédiatement au propriétaire du chat.</p>
+                <div class="search-btns">
                     {{ form_start(form) }}
                         {{ form_widget(form.coordx) }}
                         {{ form_widget(form.coordy) }}
-                    <button type="submit" class="btn btn-success">Signaler</button>
+                    <button type="submit" class="btn btn-success search">Recherche automatique par géolocalisation</button>
                     {{ form_end(form) }}
+                    <a  href="{{ path('app_disconnected')}}" class="btn btn-success search">Recherche par saisie de la commune</a>
+                </div>
             </section>
         {% endif %}
     </section>
@@ -63,13 +60,15 @@
         <div class="slider">
             {% for article in articles %}
                 <article class="article">
-                    <div class="article-picture">
-                    <img class="article-picture-background" src='/pictures/{{article.picture}}'>
-                    </div>
-                    <h2 class="article-title">{{ article.title }}</h2>
-                    <p>rédigé le : <i>{{ article.date|date('Y-m-d') }} à {{ article.date|date('H:i') }}</i></p>
-                    <p class="article-text">{{ article.text}}</p>
-                    <p class="seemore">En savoir plus &#x2192</p>
+                    {% if article.picture is empty %}
+                    <img class="article-picture-background" src='{{ asset("build/pictures/no-visual.png") }}'>
+                    {% else %}
+                    <img class="article-picture-background" src='{{ asset("/pictures/#{article.picture}") }}'> 
+                    {% endif %}
+                    <h3 class="article-title">{{ article.title }}</h3>
+                    <p>rédigé le : <i>{{ article.date|date('d-m-Y') }} à {{ article.date|date('H:i') }}</i></p>
+                    <p class="ellipsis">{{ article.text}}</p>
+                    <button class="seemore">Voir plus</button>
                 </article>
             {% endfor %}
         </div>

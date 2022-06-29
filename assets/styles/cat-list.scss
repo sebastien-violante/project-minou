@@ -1,0 +1,29 @@
+.cat-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .card {
+    width: 50%;
+    border-radius: 15px;
+    }
+
+    .cat-btns {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .btn {
+        margin: 1rem;
+        width: 150px;
+    }
+
+    .cat-picture {
+        height: 400px;
+        object-fit: cover;
+        overflow: hidden;
+    }    
+}

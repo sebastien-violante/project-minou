@@ -5,7 +5,7 @@ const bodyType = ['P', 'R', 'T'];
 
 let blurbs = document.getElementsByClassName('blurb');
 for(let blurb of blurbs) {
-    blurb.style.filter = "opacity(20%)";
+   blurb.style.filter = "opacity(20%)";
 }
 for(let blurb of blurbs) {
     blurb.addEventListener('click', (e) => {

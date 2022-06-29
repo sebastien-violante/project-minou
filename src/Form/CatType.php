@@ -33,8 +33,8 @@ class CatType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '300k',
-                        'maxSizeMessage' => 'Votre image ne doit pas depasser 300Ko.',
+                        'maxSize' => '500k',
+                        'maxSizeMessage' => 'Votre image ne doit pas depasser 500Ko.',
                     ])
                 ],
             ])
@@ -42,7 +42,6 @@ class CatType extends AbstractType
             ->add('vaccination')
             ->add('place', null, [
                 'required' => true,
-            
             ])
             ->add('colorstyle', HiddenType::class)
         ;

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %} {{ parent() }} - Liste articles{% endblock %}
 
 {% block body %}
 <section class="article-crud">
@@ -37,5 +37,5 @@
             </tbody>
         </table>
     </section>
-    <a href="{{ path('app_article_new') }}" class="btn btn-success crud-link">Créer un nouvel article</a>
+    <a href="{{ path('new-article') }}" class="btn btn-success crud-link">Créer un nouvel article</a>
 {% endblock %}

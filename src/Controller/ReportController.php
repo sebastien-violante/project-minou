@@ -35,6 +35,7 @@ class ReportController extends AbstractController
                 $em= $doctrine->getManager();
                 $report->setDate(new \DateTime);
                 $report->setCat($cat);
+                $report->setStrored(false);
                 $em->persist($report);
                 $em->flush();
                 return $this->redirectToRoute('home');
@@ -45,7 +46,7 @@ class ReportController extends AbstractController
                 ->from($this->getParameter('mailer_from'))
                 ->to($cat->getEmail())
                 ->subject('Alerte signalement !')
-                ->html('<img src="https://placekitten.com/300/40"  style="height: 60px, width: 100%, object-fit:cover" background: linear-gradient(rgba(to bottom rgb(0,0,0,0) 80%, rbga(0,0,0,1);><p>Bonjour, votre chat <b>'.$cat->getName().'</b> vient d etre repéré ! Connectez-vous à Minou et rendez-vous dans votre dashboard pour découvrir à quel endroit</p>');
+                ->html('<img src="https://placekitten.com/300/400"  style="height: 60px, width: 100%, object-fit:cover" background: linear-gradient(rgba(to bottom rgb(0,0,0,0) 80%, rbga(0,0,0,1);><p>Bonjour, votre chat <b>'.$cat->getName().'</b> vient d etre repéré ! Connectez-vous à Minou et rendez-vous dans votre dashboard pour découvrir à quel endroit</p>');
             $mailer->send($reportemail);
         }
 
@@ -54,5 +55,3 @@ class ReportController extends AbstractController
         ]);
     }
 }
-
-/* b19044527f6248f5bd0bf08cddf2f68e */

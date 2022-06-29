@@ -8,6 +8,7 @@ use App\Form\SearchType;
 use App\Service\Apiservice;
 use App\Repository\CatRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\ReportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class HomeController extends AbstractController
         public function index(
             ArticleRepository $articlesRepository,
             CatRepository $catRepository,
+            ReportRepository $reportRepository,
             Request $request,
             Apiservice $apiservice,
         ): Response {
@@ -36,9 +38,12 @@ class HomeController extends AbstractController
                 } catch (Exception $exception) {
                     $place = null;
                 }
+                $cats = $catRepository->findBy(['place' => $place, 'islost' => 'true']);
+                $length = count($cats);
                 return $this->render('cat/displaylost.html.twig',[
-                    'cats' => $catRepository->findBy(['place' => $place, 'islost' => 'true']),
+                    'cats' => $cats,
                     'place' => $place,
+                    'length' => $length,
                     ]);
             }
         //////////////////////////////////////////////////////////////////////////////
@@ -48,7 +53,6 @@ class HomeController extends AbstractController
             ]);}
         else {
         $email = $this->getUser()->getEmail();
-        
         return $this->render('home/index.html.twig', [
             'articles' => $articlesRepository->findAll(),
             'cats' => $catRepository->findByEmail($email),
@@ -70,9 +74,9 @@ class HomeController extends AbstractController
         $em->flush();
 
         return $this->json([
-            'code' => 200,
-            'message' => "changement de statut ok",
-            'status' => $catRepository->findOneById($id)->getIslost()], 200);
+        'code' => 200,
+        'message' => "changement de statut ok",
+        'status' => $catRepository->findOneById($id)->getIslost()], 200);
     }
 
     

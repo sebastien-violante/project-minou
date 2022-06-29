@@ -34,6 +34,8 @@ Encore
     .addEntry('status-change', './assets/scripts/status-change.js')
     .addEntry('autocompletion', './assets/scripts/autocompletion.js')
     .addEntry('color-result', './assets/scripts/color-result.js')
+    .addEntry('selected', './assets/scripts/selected.js')
+    .addEntry('deploy', './assets/scripts/deploy.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SelectedController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Affinez votre choix</h1>
+
+   <div id="eyes">
+                    <p class ='form-label'>Choisissez une couleurs pour les yeux</p>
+                    
+                        <div class="choice">
+                            <p>bleus</p>
+                            <div class="cap" id="B">
+                        </div>
+                        <div class="type">
+                            <img src="/pictures/brown-cat-eye.svg"class="blurb" id="M"></img>
+                            <p>marrons</p>
+                        </div>
+                        <div class="type">   
+                            <img src="/pictures/yellow-cat-eye.svg"class="blurb" id="J"></img>
+                            <p>jaunes</p>
+                        </div>
+                        <div class="type">
+                            <img src="/pictures/green-cat-eye.svg"class="blurb" id="V"></img>
+                            <p>verts</p>
+                        </div>    
+                    
+                </div>
+
+                <div id="pattern">
+                    <p class = 'form-label'>Choisissez un type de pelage</p>
+                    <div id="patterntype" style="display: flex; gap: 1rem; justify-content: space-envely">
+                        <div class="type">
+                            <img src="/pictures/plein.png" class="blurb logo" id="P"></img>
+                            <p>uni</p>
+                        </div>
+                        <div class="type">
+                            <img src="/pictures/rayure.png" class="blurb logo" id="R"></img>
+                            <p>rayé</p>
+                        </div>
+                        <div class="type">
+                            <img src="/pictures/tache.png" class="blurb logo" id="T"></img>
+                            <p>tâcheté</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="color">
+                    <p class = 'form-label'>Choisissez une ou plusieurs couleurs de pelage</p>
+                    <div id="colors" style="display: flex; gap: 1rem; justify-content: space-envely">
+                        <div class="type">
+                            <div class="blurb simple-color" id="W" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #fff"></div>
+                            <p>Blanc</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="K" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #000"></div>
+                            <p>Noir</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="N" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #973b0ad8"></div>
+                            <p>Marron</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="G" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #a5a6a3"></div>
+                            <p>Gris</p>
+                        </div>
+                        <div class="type">
+                            <div class="blurb simple-color" id="X" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #df6406"></div>
+                            <p>Roux</p>
+                        </div>
+                    </div>
+                </div>
+</div>
+{% endblock %}

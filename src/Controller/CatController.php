@@ -44,7 +44,6 @@ class CatController extends AbstractController
             $em= $doctrine->getManager();
             $cat->setEmail($mail);
             $cat->setIslost(false);
-            
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $cat instanceof Cat) {
                 $newFilename = 'cat' . '-' . $cat->getName() . '.' . $picture->guessExtension();
@@ -69,7 +68,6 @@ class CatController extends AbstractController
             $place = ucfirst($place);
             //-----------------------------//
             $cat->setPlace($place);
-         
             $em->persist($cat);
             $em->flush();
             return $this->redirectToRoute('home');
@@ -131,7 +129,7 @@ class CatController extends AbstractController
     }
 
      
-    #[Route('/cat/displaylost', name: 'displaylost')]
+    /* #[Route('/cat/displaylost', name: 'displaylost')]
     public function displayLost(float $lat, float $long, Apiservice $apiservice): Response 
     {
         try {
@@ -139,13 +137,13 @@ class CatController extends AbstractController
         } catch (Exception $exception) {
             $details = null;
         }
-        dd($details);
+       
 
         return $this->render('cat/displaylost.html.twig', [
             
         ]);
     }
-
+ */
     /**
      * @Route("/cat/displayreport/{id}", name="displayreport")
      */

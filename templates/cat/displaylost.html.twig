@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatController!{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('selected') }}
+{% endblock %}
+
+{% block title %} {{ parent() }} - Cahts perdus{% endblock %}
 
 {% block body %}
 <style>
@@ -10,8 +15,21 @@
 
 <div class="displaylost">
 
-    <h2>liste des chats perdus sur la commune de {{ place }} </h2>
+    <h5 class='top-title'>liste des chats perdus sur la commune de {{ place }} </h5>
     
+    {% if cats is empty %}
+            <div class="center">
+            <img id="no-cat-lost" class="linear-opacity" src="./pictures/happy-cat-picture.jpg"/>
+            </div>
+            <p class="info">Apparemment, il n'y a aucun chat déclaré perdu sur cette commune !</p>
+            <div class="center">
+            <a href="{{ path('home')}}" class="btn btn-success search">Revenir à l'accueil</a>
+            </div>
+    {% else %}
+        <p>Il y a {{ length }} résultats à votre recherche</p>
+        
+
+   {#  Affichage des chats perdus #}
     <div class="slider">
     {% for cat in cats %}
         <div class="card">
@@ -25,5 +43,5 @@
         </div>
     {% endfor %}
     </div>
-
+    {% endif %}
 {% endblock %}

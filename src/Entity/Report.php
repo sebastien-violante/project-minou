@@ -38,6 +38,9 @@ class Report
     #[ORM\ManyToOne(targetEntity: Cat::class, inversedBy: 'reports')]
     private $cat;
 
+    #[ORM\Column(type: 'boolean')]
+    private $strored;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,6 +114,18 @@ class Report
     public function setCat(?Cat $cat): self
     {
         $this->cat = $cat;
+
+        return $this;
+    }
+
+    public function getStrored(): ?bool
+    {
+        return $this->strored;
+    }
+
+    public function setStrored(bool $strored): self
+    {
+        $this->strored = $strored;
 
         return $this;
     }

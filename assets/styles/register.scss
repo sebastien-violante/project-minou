@@ -1,0 +1,23 @@
+#registration_form_agreeTerms {
+    
+    margin-left: 1rem;
+}
+
+.article-crud {
+
+    max-width: 800px;
+
+    .form-label {
+        margin-top: 1rem;
+    }
+
+    #agreeterms {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .btn {
+        margin: 2rem;
+    }
+}

@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CatController!{% endblock %}
+{% block title %} {{ parent() }} - Nouveau signalement{% endblock %}
 
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
     {{ encore_entry_script_tags('color-result') }}
-    {{ encore_entry_script_tags('jqueryui') }}
-    {{ encore_entry_script_tags('jqueryuimin') }}
 {% endblock %}
 
 {% block body %}
@@ -17,7 +15,7 @@
 
 <div class="example-wrapper">
      <section class="catregister">
-        <h4>Enregistrez votre chat. </h4>
+        <h5>ENREGISTREZ VOTRE CHAT</h5>
         <hr>
         {{ form_start(form) }}
             <div class="comment_form">
@@ -26,7 +24,7 @@
                 {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
                 </p>
                 <p>
-                {{ form_label(form.race, 'race :', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_label(form.race, 'race : (cliquez pour modifier)', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.race, {'attr': {'class': 'form-control'}}) }}
                 </p>
                 <p>
@@ -34,7 +32,7 @@
                 {{ form_widget(form.picture, {'attr': {'class': 'form-control'}}) }}
                 </p>
                 <p>
-                {{ form_label(form.place, 'Commune :', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_label(form.place, 'Commune : (autocompletion par nom ou CP))', {'label_attr': {'class': 'form-label'}}) }}
                 {{ form_widget(form.place, {'attr': {'class': 'form-control'}}) }}
                 </p>
                 
@@ -130,13 +128,6 @@
 </div>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJaDs8GhvKgIfGrMyp4D924YCoTryGgn0&libraries=places"></script>
-{#     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> #}
-  {#   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> #}
-{#     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> #}
-   {#  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> #}
-
 
 <script>
 $("#cp").autocomplete({

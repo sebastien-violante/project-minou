@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new-article', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         ManagerRegistry $doctrine,
@@ -44,11 +44,8 @@ class ArticleController extends AbstractController
             $em= $doctrine->getManager();
             $article->setDate(new DateTime());          
             $picture = $form->get('picture')->getData();
-            if (empty($picture)) {
-                $article->setPicture('default-article-picture.webp');
-            }
-            else if ($picture instanceof UploadedFile && $article instanceof Article) {
-                $newFilename = 'article' . '-' .$article->getDate()->format('Y-m-d H-m'). '.' . $picture->guessExtension();
+            if ($picture instanceof UploadedFile && $article instanceof Article) {
+                $newFilename = 'article' . '-' .$article->getDate()->format('Y-m-d-H-m-s'). '.' . $picture->guessExtension();
                 if (is_string($this->getParameter('picture_directory'))) {
                     try {
                         $picture->move(

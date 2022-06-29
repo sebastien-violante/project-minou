@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: 1rem;
 
     #date {
        border:1px solid red;
@@ -11,4 +12,52 @@
 .array {
     max-width: 800px;
     border: 1px solid greenyellow;
+}
+
+.center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#map {
+    box-shadow: 0px 3px 4px grey;
+    border-radius: 10px;
+    margin: 1rem auto;
+}
+
+#no-signal-picture {
+    width: 100%;
+}
+
+#no-signal-container {
+    margin-top: 3rem;
+    padding: 1rem;
+    width: 50%;
+    box-shadow: 0px 3px 4px rgb(170, 168, 168);
+    border-radius: 15px;
+}
+
+.report-card {
+    background-color: var(--background-color) ;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.report-display {
+    width: 90%;
+    margin: 1rem auto;
+    height: 30vh;
+    overflow-y:scroll;
+}
+
+.report-title {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.top-title, .top-sub-title {
+    text-align: center;
+    margin: 1rem;
 }

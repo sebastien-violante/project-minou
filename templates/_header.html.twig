@@ -4,27 +4,27 @@
         <div class="dropdown">
                 <button>Administrer</button>
                 <div class="content">
-                    <a href="">Articles</a>
+                    <a href="{{ path('new-article') }}">Articles</a>
                     <a href="">Utilisateurs</a>
-                    <a id="endlist" href="">Messages</a>
                 </div>
         </div>
         {% endif %}
+        <a href="{{ path('home') }}">Accueil</a>
         {% if app.user %}
         <div class="dropdown">
             <button>Chats</button>
             <div class="content">
                 <a href="{{ path('new_cat') }}">Nouveau</a>
-                <a href="">Liste</a>
+                <a href="{{ path('cat-list') }}">Liste</a>
             </div>
         </div>
         {% endif %}
         <a href="{{ path('app_cgu') }}">C.G.U.</a>
-        <a href="">Contact</a>
+        <a href="{{ path('contact') }}">Contact</a>
         {% if app.user %}
-        <a href="{{ path('logout') }}">Déconnexion</a>
-        {% else %}
-        <a href="login">Connexion</a>
+            <a href="{{ path('logout') }}">Déconnexion</a>
+            {% else %}
+            <a href="login">Connexion</a>
         {% endif %}
         <a class="icon" onclick="navDeploy()">&#9776;</a>   
     </header>
