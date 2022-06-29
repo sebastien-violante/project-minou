@@ -34,12 +34,14 @@
     {% for cat in cats %}
         <div class="card">
             <div class="topcard">
-                <p>{{ cat.name }}</p>
+                <p><strong>{{ cat.name }}</strong></p>
                 <p>Déclaré perdu :<br>{{ cat.datelost ? cat.datelost|date('Y-m-d H:i:s') : '' }}</p>
             </div>
             <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
             <p>Signes distinctifs :<br> {{ cat.details }}</p>
+            <div class="center">
             <a href="{{ path("report", {"cat_id": cat.id }) }}" class="btn btn-warning">Signaler</a>
+            </div>
         </div>
     {% endfor %}
     </div>

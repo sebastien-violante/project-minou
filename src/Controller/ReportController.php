@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -33,7 +34,7 @@ class ReportController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
                 $em= $doctrine->getManager();
-                $report->setDate(new \DateTime);
+                $report->setDate(new Date);
                 $report->setCat($cat);
                 $report->setStrored(false);
                 $em->persist($report);

@@ -25,6 +25,7 @@
     box-shadow: 0px 3px 4px grey;
     border-radius: 10px;
     margin: 1rem auto;
+    max-width: 95wv;
 }
 
 #no-signal-picture {
@@ -44,9 +45,10 @@
     margin: 1rem;
     padding: 1rem;
     border-radius: 5px;
+    box-shadow: 0px 3px 4px rgb(170, 168, 168);
 }
 .report-display {
-    width: 90%;
+    width: 96%;
     margin: 1rem auto;
     height: 30vh;
     overflow-y:scroll;
@@ -55,8 +57,12 @@
 .report-title {
     font-weight: bold;
     text-decoration: underline;
+    margin-bottom: 0.2em;
 }
 
+.report-text {
+    margin: 0 0 0 1rem;
+}
 .top-title, .top-sub-title {
     text-align: center;
     margin: 1rem;

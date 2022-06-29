@@ -24,17 +24,17 @@
             {% else %}
                 <section class="cats">
                     {% for cat in cats %}
-                        <div class="card">
+                        <div class="card-id">
                             <img class="cat-picture" src="/pictures/{{ cat.picture }}">
-                            <div class="topcard">
-                                <p class="cat-name">{{ cat.name }}</p>
-                                <hr>
-                                <p><b>Enregistré le :</b><br> 22 janvier 2019</p>
-                                <p><b>Prochaine vaccination : </b><br>22 mai 2023</p>
+                            <p class="cat-name">{{ cat.name }}</p>
+                            {% if cat.islost %}
+                            <p class="report-text">Déclaré perdu le : {{ cat.datelost|date('d-m-Y')  }}</p>
+                            {% endif %}
+                            <p class="report-text">Prochaine vaccination : {{ cat.vaccination|date('d-m-Y')}}</p>
                             <a class="changeStatus" href="{{ path('catlost', {id: cat.id})}}">
                                 <i id="icone" class="bi {{ cat.islost ? 'bi-binoculars-fill' : 'bi-house' }}"></i>
                             </a>
-                            </div>    
+                                
                         </div>
                     {% endfor %}  
                 </section>

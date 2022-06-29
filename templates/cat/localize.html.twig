@@ -15,20 +15,22 @@
 <hr>
 {% if reports is empty %}
     <div class="center">
-        <div id="no-signal-container">
+            <div id="no-signal-container">
             <p>Votre chat {{cat.name}} n'a pas encore été signalé. Patience, une 'Cat Patrouille' va peut-être bientôt le repérer...</p>
             <img id="no-signal-picture" src="{{ asset("build/pictures/cat-no-signal.jpg") }}"/>
         </div>
     </div>
 {% else %}
     <div class="report-display">
-        <p>Votre chat <strong>{{ cat.name }}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
+        <div class="center">
+            <img src="{{ asset("build/pictures/geoloc-icon.svg") }}"/>
+            <p class="report-text">Votre chat <strong>{{ cat.name }}</strong> a été repéré par des "Cat Patrouilles" aux positions suivantes. Attention, certains lanceurs d'alertes ont peut-être laissé leurs coordonnées...</p>
+        </div>
         {% for report in reports %}
             <div class="report-card">
-              <p class="report-title">Repérage à la date du : {{ report.date|date('d-m-Y H : i') }}</p>
-              <p>Coordonnées : Long : {{  report.coordx }} / Lat : {{  report.coordy }}</p>
-              <p>Etat de santé : {{  report.status }}</p>
-              <P>Message du lanceur d'alerte : {{  report.message }}</p>
+              <p class="report-title">Repérage à la date du : {{ report.date|date('d-m-Y') }} à {{ report.date|date('H : i') }}</p>
+              <p class="report-text">lat : {{  report.coordy }} - Long : {{  report.coordx }} / {{  report.status }}</p>
+              <p class="report-text">Message du lanceur d'alerte : "{{  report.message }}"</p>
             </div>
         {% endfor %}
     </div>
