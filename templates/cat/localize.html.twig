@@ -66,14 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('latitude centrage :' + yCenter);
         
         // détermination des écarts max en latitude et longitude
-        console.log(xPositions);
         var xmin = Math.min(...xPositions);
         var ymin = Math.min(...yPositions);
         var xmax = Math.max(...xPositions);
         var ymax = Math.max(...yPositions);
         // détermination des écarts max en distance
         xdelta = (xmax-xmin)*111;
-        ydelta = (ymax-ymin)*78.5;
+        ydelta = (ymax-ymin)*78;
         console.log('delta longitudes :' + xdelta);
         console.log('delta longitudes :' + xdelta);
         // détermination du zoom adéquat

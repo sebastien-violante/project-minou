@@ -36,6 +36,7 @@ Encore
     .addEntry('color-result', './assets/scripts/color-result.js')
     .addEntry('selected', './assets/scripts/selected.js')
     .addEntry('deploy', './assets/scripts/deploy.js')
+    .addEntry('datepicker', './assets/scripts/datepicker.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

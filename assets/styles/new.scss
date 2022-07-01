@@ -22,8 +22,12 @@
 #eyes, #pattern, #color {
     width: 70%;
     min-width: 150px;
+    padding: 0.5rem;
     margin: 0.5rem auto;
     display: block;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 6px rgb(191, 188, 188);
 }
 
 #eyes > p {
@@ -44,5 +48,14 @@
     text-align: center;
 }
 
-
+.ui-menu-item-wrapper {
+    background-color: white;
+    opacity: 90%;
+    width: 300px;
+    display: -webkit-box; 
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
 

@@ -25,7 +25,7 @@
                 <section class="cats">
                     {% for cat in cats %}
                         <div class="card-id">
-                            <img class="cat-picture" src="/pictures/{{ cat.picture }}">
+                            <img src="./pictures/{{ cat.picture }}" class="cat-picture"/>
                             <p class="cat-name">{{ cat.name }}</p>
                             {% if cat.islost %}
                             <p class="report-text">Déclaré perdu le : {{ cat.datelost|date('d-m-Y')  }}</p>

@@ -1,12 +1,14 @@
 .cat-list {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 
     .card {
-    width: 50%;
+    width: 350px;
     border-radius: 15px;
+    margin: 1rem;
     }
 
     .cat-btns {
@@ -16,14 +18,22 @@
         justify-content: space-evenly;
     }
 
-    .btn {
-        margin: 1rem;
-        width: 150px;
-    }
-
     .cat-picture {
         height: 400px;
         object-fit: cover;
         overflow: hidden;
-    }    
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 88%, 50% 100%, 0 88%, 0 0);
+        clip-path: polygon(50% 0%, 100% 0, 100% 88%, 50% 100%, 0 88%, 0 0);
+    }   
+    
+    .lost-cat-name {
+        text-align: center;
+    }
+
+    .lost-btn {
+        width: 80px;
+        margin-bottom: 1rem;
+    }
 }

@@ -60,24 +60,7 @@ class HomeController extends AbstractController
         
     }
     }
-    #[Route('/home/lost/{id}', name: 'catlost')]
-    public function catLost(int $id, Cat $cat, EntityManagerInterface $em, CatRepository $catRepository): Response
-    {
-        $cat = $catRepository->findOneById($id);
-        if ($cat->getIslost() == false) {
-            $cat->setIslost(true);
-        } else {
-            $cat->setIslost(false);
-        }
-        $cat->setDatelost(new \DateTime());
-        $em->persist($cat);
-        $em->flush();
-
-        return $this->json([
-        'code' => 200,
-        'message' => "changement de statut ok",
-        'status' => $catRepository->findOneById($id)->getIslost()], 200);
-    }
+    
 
     
 

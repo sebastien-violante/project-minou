@@ -17,14 +17,24 @@
     {% endif %}
     <div class="cat-list">
     {% for cat in cats %}
-        <div class="card">
+        <div class="card lost-list">
             <img class="cat-picture" src="/pictures/{{ cat.picture }}">
+            <h3 class="lost-cat-name">{{ cat.name }}</h3>
             <div class="cat-btns">
                 {% if cat.islost %}
-                        <a class="btn btn-primary" href="{{ path('displayreport', {id: cat.id})}}">Localiser</a>
-                        <a class="btn btn-success" href="{{ path('found', {id: cat.id})}}">Retrouvé !</a>
+                    <a class="btn btn-outline-primary lost-btn" href="{{ path('displayreport', {id: cat.id})}}"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.5 15.5L19 19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 11C5 14.3137 7.68629 17 11 17C12.6597 17 14.1621 16.3261 15.2483 15.237C16.3308 14.1517 17 12.654 17 11C17 7.68629 14.3137 5 11 5C7.68629 5 5 7.68629 5 11Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
+                    <a class="btn btn-outline-success lost-btn" href="{{ path('found', {id: cat.id})}}"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9.5L12 4L21 9.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 13V19.4C19 19.7314 18.7314 20 18.4 20H5.6C5.26863 20 5 19.7314 5 19.4V13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
                 {% endif %}
-                <a class="btn btn-danger" href="{{ path('deletecat', {id: cat.id})}}">Supprimer</a>
+                <a class="btn btn-outline-danger lost-btn" href="{{ path('deletecat', {id: cat.id})}}"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
             </div>
         </div>
     {% endfor %}

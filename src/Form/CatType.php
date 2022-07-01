@@ -39,7 +39,11 @@ class CatType extends AbstractType
                 ],
             ])
             ->add('details')
-            ->add('vaccination')
+            ->add('vaccination', null, [
+                'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
+            ] )
+            
             ->add('place', null, [
                 'required' => true,
             ])

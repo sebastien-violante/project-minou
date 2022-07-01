@@ -10,14 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DeleteController extends AbstractController
 {
-    #[Route('/delete/{id}', name: 'deletecat')]
+    #[Route('cat/delete/{id}', name: 'deletecat')]
     public function index(
         CatRepository $catRepository,
         EntityManagerInterface $em,
         int $id
     ): Response
     {
-        $this->addFlash('success', 'The new program has been created');
         $em->remove($catRepository->findOneById($id));
         $em->flush();
         return $this->redirectToRoute('home');

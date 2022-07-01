@@ -43,5 +43,3 @@ private $client;
     }
 }
 
-/* PTV Developper API key
-N2E0MWVmODFlNzk4NDc0Zjk0ZjVjN2U4NzdlYzdhZDY6MTQ3NDEzNTQtNjFhOC00YWY1LTk3NWEtNDVjZmFkYWJmZWQw */

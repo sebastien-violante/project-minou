@@ -5,6 +5,8 @@
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
     {{ encore_entry_script_tags('color-result') }}
+    {{ encore_entry_script_tags('datepicker') }}
+    {{ encore_entry_link_tags('datepicker') }}
 {% endblock %}
 
 {% block body %}
@@ -82,7 +84,7 @@
                 </div>
                 
                 <div id="color">
-                    <p class = 'form-label'>Couleur du pelage :</p>
+                    <p class ='form-label'>Couleur du pelage :</p>
                     <div id="colors" style="display: flex; gap: 1rem; justify-content: space-envely">
                         <div class="type">
                             <div class="blurb simple-color" id="W" style="border: 1px solid grey; height: 50px; width: 50px; background-color: #fff"></div>
@@ -110,6 +112,8 @@
                     {{ form_label(form.vaccination, 'Prochaine vaccination :', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(form.vaccination, {'attr': {'class': 'form-control'}}) }}
                 </p>
+                    
+                
                 <p>
                     {{ form_label(form.details, 'signes distinctifs :', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(form.details, {'attr': {'class': 'form-control'}}) }}

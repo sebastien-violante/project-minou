@@ -45,7 +45,6 @@ class CatController extends AbstractController
             $em= $doctrine->getManager();
             $cat->setEmail($mail);
             $cat->setIslost(false);
-            $cat->setRegister(new \DateTime);
             $picture = $form->get('picture')->getData();
             if ($picture instanceof UploadedFile && $cat instanceof Cat) {
                 $newFilename = 'cat' . '-' . $cat->getName() . '.' . $picture->guessExtension();
@@ -79,7 +78,7 @@ class CatController extends AbstractController
         ]);
     }
     
-    #[Route('/cat/lost/{id}', name: 'cat-lost')]
+    /* #[Route('/cat/lost/{id}', name: 'cat-lost')]
     public function catLost(EntityManagerInterface $em, int $id): Response
     {
         $cat = $em
@@ -93,63 +92,31 @@ class CatController extends AbstractController
             $em->persist($cat);
             $em->flush();
             return $this->redirectToRoute('home');
-    }
+    } */
 
-    #[Route('/cat/displaychoice', name: 'displaychoice')]
-    public function displaychoice(
-        Request $request,
-        CatRepository $catRepository,
-        Apiservice $getPlace,
-    ): Response 
+    #[Route('/cat/lost/{id}', name: 'catlost')]
+    public function catLost(int $id, Cat $cat, EntityManagerInterface $em, CatRepository $catRepository): Response
     {
-        
-        if($request->request->count() > 0) {
-            $place = $request->request->get('Ville');
-            $color1 = $request->request->get('color1');
-            $color2 = $request->request->get('color2');
-            $color3 = $request->request->get('color3');
-            $lat=47;
-            $long=0.6;
-            $cats = $catRepository->findBy(
-                ['place' => $place,
-                'islost' => true]);
-            try {
-                $town = json_decode($townapi->getData($lat, $long));
-                
-            } catch (Exception $exception) {
-                $place = null;
-            }
-            
-            return $this->render('cat/displaylost.html.twig', [
-                'cats' => $cats,
-                'place' => $place,
-            ]);
+        $cat = $catRepository->findOneById($id);
+        if ($cat->getIslost() == false) {
+            $cat->setIslost(true);
+        } else {
+            $cat->setIslost(false);
         }
-        return $this->render('cat/displaychoice.html.twig', [
-            
-        ]);
+        $cat->setDatelost(new \DateTime());
+        $em->persist($cat);
+        $em->flush();
+
+        return $this->json([
+        'code' => 200,
+        'message' => "changement de statut ok",
+        'status' => $catRepository->findOneById($id)->getIslost()], 200);
     }
 
-     
-    /* #[Route('/cat/displaylost', name: 'displaylost')]
-    public function displayLost(float $lat, float $long, Apiservice $apiservice): Response 
-    {
-        try {
-            $details = json_decode($apiservice->getPlace($lat, $long), true);
-        } catch (Exception $exception) {
-            $details = null;
-        }
-       
-
-        return $this->render('cat/displaylost.html.twig', [
-            
-        ]);
-    }
- */
     /**
      * @Route("/cat/displayreport/{id}", name="displayreport")
      */
-   public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
+    public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
     {
         $reports = $reportRepository->findBy(['cat' => $id]);
         $cat = $catRepository->findOneBy(['id' => $id]);
