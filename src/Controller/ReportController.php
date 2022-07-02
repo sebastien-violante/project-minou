@@ -53,6 +53,7 @@ class ReportController extends AbstractController
 
         return $this->render('report/index.html.twig', [
             'form' => $form->createView(),
+            'cat' => $cat,
         ]);
     }
 }

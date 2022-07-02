@@ -1,0 +1,16 @@
+.cat-status {
+    background-color : transparent;
+    border: none;
+}
+
+#report_coordx, #report_coordy {
+    margin: 0.3rem auto;
+    border-radius: 5px;
+    background-color: rgb(238, 218, 180);
+    width: 200px;
+}
+
+#report_status_1, #report_status_2, #report_status_3 {
+    margin-left: 0.4rem;
+    margin-right: 0.2rem;
+}

@@ -29,8 +29,17 @@
         {% for report in reports %}
             <div class="report-card">
               <p class="report-title">Repérage à la date du : {{ report.date|date('d-m-Y') }} à {{ report.date|date('H : i') }}</p>
-              <p class="report-text">lat : {{  report.coordy }} - Long : {{  report.coordx }} / {{  report.status }}</p>
-              <p class="report-text">Message du lanceur d'alerte : "{{  report.message }}"</p>
+              <p class="report-text">lat : {{  report.coordy }} - Long : {{  report.coordx }} / 
+              {% if report.status is same as ("En bonne santé") %}
+              <i class="fa-solid fa-heart"></i>
+              {% endif %}
+              {% if report.status is same as ("Blessé") %}
+              <i class="fa-solid fa-stethoscope"></i>
+              {% endif %}
+              {% if report.status is same as ("Mort") %}
+              <i class="fa-solid fa-coffin-cross"></i>
+              {% endif %}
+            <p class="report-text">Message du lanceur d'alerte : "{{  report.message }}"</p>
             </div>
         {% endfor %}
     </div>
@@ -53,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(function(resp){
         let xPositions = [];
         let yPositions = [];
-        let zoomLevel = 10;
+        let zoomLevel = 14;
         resp.forEach(function(y){
             yPositions.push(parseFloat(y.coordy));
             xPositions.push(parseFloat(y.coordx));
@@ -74,23 +83,35 @@ document.addEventListener('DOMContentLoaded', function() {
         xdelta = (xmax-xmin)*111;
         ydelta = (ymax-ymin)*78;
         console.log('delta longitudes :' + xdelta);
-        console.log('delta longitudes :' + xdelta);
+        console.log('delta latitudes :' + ydelta);
         // détermination du zoom adéquat
-        if(xdelta < 46.84 && ydelta < 46.84) {
-          zoomLevel = 11;
-        }
-        if(xdelta < 23.4 && ydelta < 23.4){
-          zoomLevel = 12;
-        }
-        if(xdelta < 11.71 && ydelta < 11.71){
+        if(xdelta > 1.830 || ydelta > 1.83){
           zoomLevel = 13;
         }
-        if(xdelta < 5.85 && ydelta < 5.85){
-          zoomLevel = 14;
+        if(xdelta > 2.92 || ydelta > 2.92){
+          zoomLevel = 12;
         }
-        if(xdelta < 2.92 && ydelta < 2.92){
-          zoomLevel = 15;
+         if(xdelta > 5.85 || ydelta > 5.85){
+          zoomLevel = 11;
         }
+        if(xdelta > 11.71 || ydelta > 11.71){
+          zoomLevel = 10;
+        }
+         if(xdelta > 23.4 || ydelta > 23.4){
+          zoomLevel = 09;
+        }
+        if(xdelta > 46.84 || ydelta > 46.84) {
+          zoomLevel = 08;
+        }
+        if(xdelta > 93.68 || ydelta > 93.68) {
+          zoomLevel = 07;
+        }
+        if(xdelta > 187.373 || ydelta > 187.373) {
+          zoomLevel = 06;
+        }
+       
+        
+        
         console.log(zoomLevel);   
         
         mapboxgl.accessToken = 'pk.eyJ1Ijoic2ViYXN0aWVudmlvbGFudGUiLCJhIjoiY2wzbG4wNWg5MGZ0bzNrbThwNzh0ZXFhOCJ9.8M0DRywrHjBdZdQsMOfciQ';

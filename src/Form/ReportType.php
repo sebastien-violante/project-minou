@@ -25,7 +25,7 @@ class ReportType extends AbstractType
             ->add('status', EntityType::class, [
                 'class' => Status::class,
                 'multiple' => false,
-                'expanded' => false,
+                'expanded' => true,
                 'required' => true,])
             
         ;

@@ -78,22 +78,6 @@ class CatController extends AbstractController
         ]);
     }
     
-    /* #[Route('/cat/lost/{id}', name: 'cat-lost')]
-    public function catLost(EntityManagerInterface $em, int $id): Response
-    {
-        $cat = $em
-            ->getRepository(Cat::class)
-            ->findOneById($id);
-        if($cat->getIsLost() == true) {
-            $cat->setIsLost(false); 
-        } else {
-            $cat->setIsLost(true);
-        }
-            $em->persist($cat);
-            $em->flush();
-            return $this->redirectToRoute('home');
-    } */
-
     #[Route('/cat/lost/{id}', name: 'catlost')]
     public function catLost(int $id, Cat $cat, EntityManagerInterface $em, CatRepository $catRepository): Response
     {
@@ -118,7 +102,7 @@ class CatController extends AbstractController
      */
     public function displayreport(int $id, CatRepository $catRepository, ReportRepository $reportRepository): Response
     {
-        $reports = $reportRepository->findBy(['cat' => $id]);
+        $reports = $reportRepository->findBy(['cat' => $id, 'strored' => false]);
         $cat = $catRepository->findOneBy(['id' => $id]);
         $date = new \DateTime();
         $date = $date->format('Y-m-d H:i:s');
