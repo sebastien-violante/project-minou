@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class HomeController extends AbstractController
 {
@@ -39,11 +40,29 @@ class HomeController extends AbstractController
                     $place = null;
                 }
                 $cats = $catRepository->findBy(['place' => $place, 'islost' => 'true']);
+                $plains = $stripes = $staines = [];
+                foreach ($cats as $cat) {
+                    if(str_contains($cat->getColorStyle(),'P')) {
+                        $plains[] = $cat;
+                    };
+                    if(str_contains($cat->getColorStyle(),'R')) {
+                        $stripes[] = $cat;
+                    };
+                    if(str_contains($cat->getColorStyle(),'T')) {
+                        $staines[] = $cat;
+                    };
+                }
                 $length = count($cats);
                 return $this->render('cat/displaylost.html.twig',[
                     'cats' => $cats,
                     'place' => $place,
                     'length' => $length,
+                    'plains' => $plains,
+                    'nbplains' => count($plains),
+                    'strips' => $stripes,
+                    'nbstripes' => count($stripes),
+                    'staines' => $staines,
+                    'nbstaines' => count($staines),
                     ]);
             }
         //////////////////////////////////////////////////////////////////////////////
@@ -56,7 +75,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'articles' => $articlesRepository->findAll(),
             'cats' => $catRepository->findByEmail($email),
-            ]);
+        ]);
         
     }
     }

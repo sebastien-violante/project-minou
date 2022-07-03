@@ -11,6 +11,7 @@
 <div class="example-wrapper">
     <h3>Signalez un chat</h3>
     <p>Vous êtes sur le point de signaler <strong>{{ cat.name }}</strong>.</p>
+    <img class="cat-reported" src="/pictures/{{ cat.picture }}"/>
     <hr>
     {{ form_start(form) }}
         <p>Vous êtes situé(e) aux coordonnées suivantes</p>
@@ -21,7 +22,7 @@
     <div class="comment_form">
         <p>Veuillez remplir le formulaire suivant pour préciser votre signalement</p>
         <p>
-        {{ form_label(form.message, 'message :', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.message, 'message : (obligatoire)', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
         </p>
         <p>

@@ -19,12 +19,21 @@
         box-shadow: 0px 3px 4px grey;
     }
 
+    #help {
+        position: relative;
+    }
+
     .lost-date {
         margin: 1rem;
     }
 
     .lost-details {
-        margin: 1rem;
+        margin: 2rem 1rem 1rem 1rem;
+        display: -webkit-box; 
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow:ellipsis;
     }
 
     .lost-signal {
@@ -54,6 +63,50 @@
         font-size: 2rem;
         margin-left: 0.5rem;
         margin-top: 1rem;
+    }
+
+    #precise-arrow {
+        margin: 0 auto;
+        border: 1px solid black;
+        border-radius: 50%;
+        position: absolute;
+        top: 35px;
+        left: 48%;
+    }
+    .precise-item {
+        display: block;
+    }
+
+    .visible {
+        margin:2rem 1rem;
+        padding: 1rem;
+        background-color: white;
+        border-radius: 10px;
+    }
+    .precise-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap:wrap
+    }
+
+    #results-count {
+        margin-left: 2rem;
+    }
+
+    .see-btn {
+        width: 80px;
+        height: 30px;
+        margin-left: 2rem;
+        border-radius: 15px;
+    }
+
+    .hidden {
+        display:none;
+    }
+
+    .up {
+        transform: rotate(180deg);
     }
 
 }

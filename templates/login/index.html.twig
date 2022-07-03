@@ -9,9 +9,8 @@
 </style>
 
 <div class="login" >
-    <img id="cat-connexion-picture">
-    <p>CONNECTEZ-VOUS A L'APPLICATION</p>
-    <hr>
+  
+    <p id="login-title">CONNECTEZ-VOUS A L'APPLICATION</p>
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}

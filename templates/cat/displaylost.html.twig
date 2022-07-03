@@ -3,6 +3,8 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('selected') }}
+    {{ encore_entry_script_tags('deploysearch') }}
+        {{ encore_entry_script_tags('restrict') }}
 {% endblock %}
 
 {% block title %} {{ parent() }} - Cahts perdus{% endblock %}
@@ -26,24 +28,46 @@
             <a href="{{ path('home')}}" class="btn btn-success search">Revenir à l'accueil</a>
             </div>
     {% else %}
-        <p>Il y a {{ length }} résultats à votre recherche</p>
-        
+        <p id="results-count">Il y a <strong style="font-size: 2rem">{{ length }} </strong>résultats à votre recherche</p>
+ 
+            
 
    {#  Affichage des chats perdus #}
     <div class="slider">
     {% for cat in cats %}
-        <div class="card">
-            <div class="topcard">
+        <div class="card {{ cat.colorstyle}}">
+            <div class="topcard ">
                 <p class="catname"><strong>{{ cat.name }}</strong></p>
                 <p class="lost-date">Déclaré perdu :<br>{{ cat.datelost ? cat.datelost|date('d-m-Y') : '' }}</p>
             </div>
             <img class="cat-picture" src="/pictures/{{ cat.picture }}"</img>
-            <p class="lost-details">Signes distinctifs :<br> {{ cat.details }}</p>
+            <p class="lost-details"><strong>Signes distinctifs :</strong><br> {{ cat.details }}</p>
             <div class="center lost-signal">
             <a href="{{ path("report", {"cat_id": cat.id }) }}" class="btn btn-warning lost-btn">Signaler</a>
             </div>
         </div>
     {% endfor %}
+    </div>
+    <hr>
+    <div id="help">
+        <p>Vous pouvez affiner votre recherche en cliquant sur la flèche :</p>
+        <img id="precise-arrow" class="advice-arrow" src="{{ asset('build/pictures/arrow.svg') }}">
+        <div class="hidden">
+            <table>
+                <tr>
+                    <td>Il y a <strong>{{ nbplains }}</strong> chats dont la robe est unie</td>
+                    <td><a id="P" class="btn btn-outline-warning see-btn">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>Il y a <strong>{{ nbstripes }}</strong> chats dont la robe est rayée</td>
+                    <td><a class="btn btn-outline-warning see-btn">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>Il y a <strong>{{ nbstaines }}</strong> chats dont la robe est tâchetée</td>
+                    <td><a class="btn btn-outline-warning see-btn">Voir</a></td>
+                </tr>
+            </table>
+        </div>
     </div>
     {% endif %}
 {% endblock %}

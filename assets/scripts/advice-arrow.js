@@ -1,5 +1,4 @@
 let arrows = document.getElementsByClassName('advice-arrow');
-console.log(arrows);
 for(let arrow of arrows) {
     arrow.addEventListener('click', (e) => {
     if(arrow.nextElementSibling.className === "hidden"){

@@ -2,12 +2,22 @@
     padding: 0 2rem;
 
     .article-picture-crud {
-        height: 100px;
-        width: 100px;
+        height: 150px;
+        width: 200px;
+        object-fit: cover ;
+        border-radius: 10px;
     }
 
     #article-title {
         font-weight: bold;
+    }
+
+    .article-text {
+        display: -webkit-box; 
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow:ellipsis;
     }
 
     .crud-theme-title {

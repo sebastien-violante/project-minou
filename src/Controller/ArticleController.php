@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+/* Set of methods to add, delete or view an article */
 #[Route('/power/article')]
 class ArticleController extends AbstractController
 {
