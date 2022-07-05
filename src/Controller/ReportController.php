@@ -41,7 +41,6 @@ class ReportController extends AbstractController
                 $em->flush();
                 return $this->redirectToRoute('home');
         }
-
         if ($cat->getEmail()) {
             $reportemail = (new Email())
                 ->from($this->getParameter('mailer_from'))
@@ -50,7 +49,6 @@ class ReportController extends AbstractController
                 ->html('<p>Bonjour, votre chat <b>'.$cat->getName().'</b> vient d etre repéré ! Connectez-vous à Minou et rendez-vous dans votre dashboard pour découvrir à quel endroit</p>');
             $mailer->send($reportemail);
         }
-
         return $this->render('report/index.html.twig', [
             'form' => $form->createView(),
             'cat' => $cat,

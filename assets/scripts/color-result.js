@@ -2,11 +2,12 @@
 let colorResult = [];
 const eyesColor = ['B', 'M', 'J', 'V'];
 const bodyType = ['P', 'R', 'T'];
-
 let blurbs = document.getElementsByClassName('blurb');
+/* When the page is first displayed, the opacity of all blurbs is set to 20% to show that they are not selected */
 for(let blurb of blurbs) {
    blurb.style.filter = "opacity(20%)";
 }
+/* For each of the blurbs, listen to the "click" event and change the opacity */
 for(let blurb of blurbs) {
     blurb.addEventListener('click', (e) => {
         if( e.currentTarget.style.filter == "opacity(20%)") {
@@ -36,6 +37,7 @@ for(let blurb of blurbs) {
             }
             colorResult.push(e.currentTarget.id);
         };
+   /*  Transformation of the color code array into a string  */
     let finalcolor = colorResult.join('');
     document.getElementById('cat_colorstyle').value = finalcolor;
     console.log(document.getElementById('cat_colorstyle').value);

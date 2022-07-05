@@ -1,3 +1,4 @@
+/* Le but du script est de permettre une autocompletion du champ "place" */
 
 $("#cp").autocomplete({
 	source: function (request, response) {
@@ -8,7 +9,7 @@ $("#cp").autocomplete({
 			success: function (data) {
 				var postcodes = [];
 				response($.map(data.features, function (item) {
-					// Ici on est obligé d'ajouter les CP dans un array pour ne pas avoir plusieurs fois le même
+					// The CPs must be added in a table so as not to have several times the same
 					if ($.inArray(item.properties.postcode, postcodes) == -1) {
 						postcodes.push(item.properties.postcode);
 						return { label: item.properties.postcode + " - " + item.properties.city, 
@@ -20,7 +21,7 @@ $("#cp").autocomplete({
 			}
 		});
 	},
-	// On remplit aussi la ville
+	// The city is  seized
 	select: function(event, ui) {
 		$('#ville').val(ui.item.city);
 	}
@@ -34,7 +35,7 @@ $("#ville").autocomplete({
 			success: function (data) {
 				var cities = [];
 				response($.map(data.features, function (item) {
-					// Ici on est obligé d'ajouter les villes dans un array pour ne pas avoir plusieurs fois la même
+					// The towns must be added in a table so as not to have several times the same
 					if ($.inArray(item.properties.postcode, cities) == -1) {
 						cities.push(item.properties.postcode);
 						return { label: item.properties.postcode + " - " + item.properties.city, 
@@ -46,7 +47,7 @@ $("#ville").autocomplete({
 			}
 		});
 	},
-	// On remplit aussi le CP
+	// The CP is  seized
 	select: function(event, ui) {
 		$('#cp').val(ui.item.postcode);
 	}

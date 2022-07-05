@@ -21,6 +21,7 @@
 
     #help {
         position: relative;
+        margin: 1rem;
     }
 
     .lost-date {
@@ -70,7 +71,7 @@
         border: 1px solid black;
         border-radius: 50%;
         position: absolute;
-        top: 35px;
+        top: 40px;
         left: 48%;
     }
     .precise-item {
@@ -78,7 +79,7 @@
     }
 
     .visible {
-        margin:2rem 1rem;
+        margin:3rem 1rem;
         padding: 1rem;
         background-color: white;
         border-radius: 10px;
@@ -96,9 +97,13 @@
 
     .see-btn {
         width: 80px;
-        height: 30px;
         margin-left: 2rem;
         border-radius: 15px;
+        vertical-align: middle;
+    }
+
+    .see-btn:hover {
+        text-decoration: none;
     }
 
     .hidden {

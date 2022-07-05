@@ -39,6 +39,7 @@ Encore
     .addEntry('deploysearch', './assets/scripts/deploy-search.js')
     .addEntry('datepicker', './assets/scripts/datepicker.js')
     .addEntry('restrict', './assets/scripts/restrict.js')
+    .addEntry('localize', './assets/scripts/localize.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

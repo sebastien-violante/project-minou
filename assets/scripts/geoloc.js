@@ -1,5 +1,6 @@
 let coordx = document.getElementById('search_coordx');
 let coordy = document.getElementById('search_coordy');
+
 // if geolocation is activated, init function getPosition to catch current position
 function showPosition(position)
 {

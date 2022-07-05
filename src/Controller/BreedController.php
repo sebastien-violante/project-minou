@@ -20,7 +20,6 @@ class BreedController extends AbstractController
         $breeds = $entityManager
             ->getRepository(Breed::class)
             ->findAll();
-
         return $this->render('breed/index.html.twig', [
             'breeds' => $breeds,
         ]);
@@ -32,14 +31,11 @@ class BreedController extends AbstractController
         $breed = new Breed();
         $form = $this->createForm(BreedType::class, $breed);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($breed);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_breed_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('breed/new.html.twig', [
             'breed' => $breed,
             'form' => $form,
@@ -59,13 +55,10 @@ class BreedController extends AbstractController
     {
         $form = $this->createForm(BreedType::class, $breed);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_breed_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('breed/edit.html.twig', [
             'breed' => $breed,
             'form' => $form,
@@ -79,7 +72,6 @@ class BreedController extends AbstractController
             $entityManager->remove($breed);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_breed_index', [], Response::HTTP_SEE_OTHER);
     }
 }

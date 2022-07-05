@@ -27,11 +27,29 @@ class DisconnectedController extends AbstractController
             ////Forçage de la première lettre en majuscule
             $place = ucfirst($place);
             $cats=$catRepository->findBy(['place' => $place, 'islost' => 'true']);
+            $plains = $stripes = $staines = [];
+                foreach ($cats as $cat) {
+                    if(str_contains($cat->getColorStyle(),'P')) {
+                        $plains[] = $cat;
+                    };
+                    if(str_contains($cat->getColorStyle(),'R')) {
+                        $stripes[] = $cat;
+                    };
+                    if(str_contains($cat->getColorStyle(),'T')) {
+                        $staines[] = $cat;
+                    };
+                }
             $length = count($cats);
             return $this->render('cat/displaylost.html.twig',[
                 'cats' => $cats,
                 'place' => $place,
                 'length' => $length,
+                'plains' => $plains,
+                'nbplains' => count($plains),
+                'strips' => $stripes,
+                'nbstripes' => count($stripes),
+                'staines' => $staines,
+                'nbstaines' => count($staines),
                 ]);
         }
         return $this->render('disconnected/index.html.twig', [

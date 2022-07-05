@@ -21,7 +21,7 @@ class SelectedController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $colortype = $form->getData()['colortype'];
-         /*    traitement de la requete pour récuérer les résultats */
+            /* processing the request to retrieve the results */
             $place = 'Fondettes';
            /*  $length = count($cats); */
             return $this->render('cat/displaylost.html.twig',[

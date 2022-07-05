@@ -4,7 +4,6 @@ const eyesColor = ['B', 'M', 'J', 'V'];
 const bodyType = ['P', 'R', 'T'];
 
 let caps = document.getElementsByClassName('cap');
-/* console.log(caps); */
 for(let cap of caps) {
     cap.style.filter = "opacity(20%)";
 }

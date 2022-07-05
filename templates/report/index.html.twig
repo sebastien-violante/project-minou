@@ -15,20 +15,20 @@
     <hr>
     {{ form_start(form) }}
         <p>Vous êtes situé(e) aux coordonnées suivantes</p>
-        <p>Latitude</p>    
+        <p class="coord-text">Latitude</p>    
         {{ form_widget(form.coordx) }}
-        <p>Longitude</p> 
+        <p class="coord-text">Longitude</p> 
         {{ form_widget(form.coordy) }}
     <div class="comment_form">
         <p>Veuillez remplir le formulaire suivant pour préciser votre signalement</p>
         <p>
-        {{ form_label(form.message, 'message : (obligatoire)', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.message, 'Votre message : (obligatoire)', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
         </p>
-        <p>
-        {{ form_label(form.status, 'status :', {'label_attr': {'class': 'form-label'}}) }}
+        
+        {{ form_label(form.status, 'Etat de santé :', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.status, {'attr': {'class': 'form-control cat-status'}}) }}
-        </p>
+        
         <br>
         <div class="center">
         <button type="submit" class="btn btn-warning" onclick="return confirm('Attention, les informations que vous fournissez seront transmises au propriétaire du chat');">Enregistrer</button>

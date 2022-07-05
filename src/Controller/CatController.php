@@ -40,7 +40,6 @@ class CatController extends AbstractController
         $form = $this->createForm(CatType::class, $cat);
         $form->handleRequest($request);
         $mail = $this->getUser()->getEmail();
-        
         if ($form->isSubmitted() && $form->isValid()) {
             $em= $doctrine->getManager();
             $cat->setEmail($mail);
@@ -59,15 +58,13 @@ class CatController extends AbstractController
                     }
                 }
                 $cat->setPicture($newFilename);
-                
             }
-            //traitement de la donnée ville
+            //processing of city data
             $place = $form->get('place')->getData();
-            ////suppression des espaces
+            ////spaces removal
             $place = preg_replace("/\s+/", "", $place);
-            ////Forçage de la première lettre en majuscule
+            ////Forcing first letter in upper case
             $place = ucfirst($place);
-            //-----------------------------//
             $cat->setPlace($place);
             $em->persist($cat);
             $em->flush();
@@ -90,7 +87,6 @@ class CatController extends AbstractController
         $cat->setDatelost(new \DateTime());
         $em->persist($cat);
         $em->flush();
-
         return $this->json([
         'code' => 200,
         'message' => "changement de statut ok",

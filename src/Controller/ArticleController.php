@@ -25,7 +25,6 @@ class ArticleController extends AbstractController
         $articles = $entityManager
             ->getRepository(Article::class)
             ->findAll();
-
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
         ]);
@@ -40,7 +39,6 @@ class ArticleController extends AbstractController
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
             $em= $doctrine->getManager();
             $article->setDate(new DateTime());          
@@ -75,19 +73,16 @@ class ArticleController extends AbstractController
             'article' => $article,
         ]);
     }
- 
+
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('article/edit.html.twig', [
             'article' => $article,
             'form' => $form,
@@ -101,7 +96,6 @@ class ArticleController extends AbstractController
             $entityManager->remove($article);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
 }

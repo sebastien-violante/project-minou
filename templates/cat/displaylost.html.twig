@@ -7,7 +7,7 @@
         {{ encore_entry_script_tags('restrict') }}
 {% endblock %}
 
-{% block title %} {{ parent() }} - Cahts perdus{% endblock %}
+{% block title %} {{ parent() }} - Chats perdus{% endblock %}
 
 {% block body %}
 <style>
@@ -50,7 +50,7 @@
     </div>
     <hr>
     <div id="help">
-        <p>Vous pouvez affiner votre recherche en cliquant sur la flèche :</p>
+        <p>Cliquez pour affiner votre recherche :</p>
         <img id="precise-arrow" class="advice-arrow" src="{{ asset('build/pictures/arrow.svg') }}">
         <div class="hidden">
             <table>
@@ -60,11 +60,11 @@
                 </tr>
                 <tr>
                     <td>Il y a <strong>{{ nbstripes }}</strong> chats dont la robe est rayée</td>
-                    <td><a class="btn btn-outline-warning see-btn">Voir</a></td>
+                    <td><a id="R" class="btn btn-outline-warning see-btn">Voir</a></td>
                 </tr>
                 <tr>
                     <td>Il y a <strong>{{ nbstaines }}</strong> chats dont la robe est tâchetée</td>
-                    <td><a class="btn btn-outline-warning see-btn">Voir</a></td>
+                    <td><a id="T" class="btn btn-outline-warning see-btn">Voir</a></td>
                 </tr>
             </table>
         </div>

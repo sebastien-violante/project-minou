@@ -1,3 +1,4 @@
+/* Function to change the value of the "isLost" field of the entity when clicking on the icon */
 function changestatus(event) {
     event.preventDefault();
     console.log(event.target);
@@ -12,6 +13,7 @@ function changestatus(event) {
         .then(function(res) {
             console.log(res);
             let icon = event.target;
+            /* change of the class of the icon (and thus of the image) according to the clickc */
             if(res.status) {
                 icon.classList.remove('bi-house');
                 icon.classList.add('binoculars-fill');

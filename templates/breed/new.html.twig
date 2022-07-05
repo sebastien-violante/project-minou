@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Breed{% endblock %}
+{% block title %} {{ parent() }} - Races{% endblock %}
 
 {% block body %}
-    <h1>Create new Breed</h1>
+    <h4>Ajouter une nouvelle race</h4>
 
     {{ include('breed/_form.html.twig') }}
 
-    <a href="{{ path('app_breed_index') }}">back to list</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_breed_index') }}">Retour à la liste</a>
 {% endblock %}

@@ -65,7 +65,6 @@ class HomeController extends AbstractController
                     'nbstaines' => count($staines),
                     ]);
             }
-        //////////////////////////////////////////////////////////////////////////////
             return $this->render('home/index.html.twig', [
                 'articles' => $articlesRepository->findAll(),
                 'form' => $form->createView(),
@@ -76,7 +75,6 @@ class HomeController extends AbstractController
             'articles' => $articlesRepository->findAll(),
             'cats' => $catRepository->findByEmail($email),
         ]);
-        
     }
     }
     
