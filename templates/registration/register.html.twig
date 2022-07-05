@@ -18,6 +18,7 @@
         {{ form_label(registrationForm.plainPassword, 'Mot de passe :', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
         <br>
+        <p>Consulter les <a href="{{ path('app_cgu') }}">CGU</a></p>
         {{ form_row(registrationForm.agreeTerms) }}
         <div class="center">
             <button type="submit" class="btn btn-success">Enregistrez-vous</button>

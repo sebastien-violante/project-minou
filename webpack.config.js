@@ -14,7 +14,7 @@ Encore
     .copyFiles({
         from: './assets/pictures',
         to: 'pictures/[path][name].[hash:8].[ext]',
-        pattern: /\.(png|jpg|jpeg|webp|svg)$/
+        pattern: /\.(png|jpg|jpeg|webp)$/
     })
 
     // only needed for CDN's or sub-directory deploy

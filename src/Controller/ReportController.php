@@ -49,6 +49,7 @@ class ReportController extends AbstractController
                 ->html('<p>Bonjour, votre chat <b>'.$cat->getName().'</b> vient d etre repéré ! Connectez-vous à Minou et rendez-vous dans votre dashboard pour découvrir à quel endroit</p>');
             $mailer->send($reportemail);
         }
+        $this->addFlash('success', "votre signalement a bien été pris en compte. Le propriétaire du chat vient de recevoir un email");
         return $this->render('report/index.html.twig', [
             'form' => $form->createView(),
             'cat' => $cat,

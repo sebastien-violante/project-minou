@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/* The method returns all reports concerning the cat identified by id in the format j.son */
 class ApiPostController extends AbstractController
 {
     #[Route('/api/post/{id}', name: 'app_api_post_index', methods:['GET'])]
